@@ -1,5 +1,6 @@
 import json
 import string
+import random
 
 file = open("./games/fixtures/games.json", "r")
 
@@ -16,7 +17,7 @@ def create_item(field_name, item_name, key_id):
     single_item["pk"] = key_id
 
     # add model field
-    single_item["model"] = "products." + field_name
+    single_item["model"] = "games." + field_name
 
     # add fields object
     fields = {}
@@ -43,7 +44,10 @@ def map_field_to_indices(file_json, field_name):
     # main loop
     for game_object in file_json:
 
-        target_field = game_object[field_name]  # = whole field contents
+        # we target the fields
+        field_obj = game_object["fields"]
+
+        target_field = field_obj[field_name]  # = whole field contents
 
         # split into seperate string dict items
         field_list = target_field.split(", ")
@@ -69,13 +73,17 @@ def map_field_to_indices(file_json, field_name):
             item_ids.append(index)
 
         # add category id field
-        game_object[field_name + "_id"] = item_ids
+        field_obj[field_name + "_id"] = item_ids
 
         # delete category field
-        del game_object[field_name]
+        del field_obj[field_name]
 
         # add model field
-        game_object["model"] = "products.product"
+        # game_object["model"] = "games.product"
+
+        # add price field
+        random_num = random.uniform(10, 50)
+        field_obj["price"] = random_num
 
     # write the new file
     map_file = open("./games/fixtures/game_" + field_name + ".json", 'w')
@@ -85,8 +93,23 @@ def map_field_to_indices(file_json, field_name):
     return file_json
 
 
+# map to django-compliant structure
+django_struct = []
+
+for game_obj in file_json:
+
+    single_game = {}
+    single_game["pk"] = game_obj["rank"]
+
+    single_game["model"] = "games.product"
+
+    single_game["fields"] = game_obj
+
+    django_struct.append(single_game)
+
+
 # map mechanics, and write mechanics file
-new_json = map_field_to_indices(file_json, "mechanic")
+new_json = map_field_to_indices(django_struct, "mechanic")
 
 # map categories, and write categories file
 out_json = map_field_to_indices(new_json, "category")
