@@ -9,7 +9,7 @@ def all_games(request):
 
     games = Product.objects.all().order_by('rank')  # Ignore the
 
-    paginator = Paginator(games, 16)  # Show 16 games per page
+    paginator = Paginator(games, 48)  # Show 48 games per page
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
