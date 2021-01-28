@@ -2,7 +2,9 @@ html {
     height: 100%;
 }
 
-
+#main-nav {
+    padding: 0;
+}
 .basecss {
     background-color: chocolate;
 }
@@ -12,7 +14,7 @@ html {
 /* Slightly larger container on xl screens */
 @media (min-width: 1200px) {
   .container {
-    max-width: 80%;
+    max-width: 100%;
   }
 }
 
