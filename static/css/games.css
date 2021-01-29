@@ -4,3 +4,7 @@
     color: red;
     background-color: aqua;
 }
+
+.card-body {
+    padding: 0.25rem;
+}

@@ -5,59 +5,109 @@
 {% endblock %}
 
 
+<body>
+    
 
 {% block page_header %}
-    <div class="container header-container">
+
+<nav class="navbar navbar-expand-lg flex-column flex-md-row navbar-dark bg-dark">
+    {% include 'includes/shop-nav.html' %} 
+</nav>
+    <!-- <div class="container header-container">
         <div class="row">
-            <div class="col"></div>
         </div>
-    </div>
+    </div> -->
 {% endblock %}
 
                 
 
 {% block content %}
+
+
     <div class="overlay"></div>
     <div class="container-fluid">
-        <div class="row"> <!-- search box -->
-            <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
-                <form method="GET" action="">
-                    <div class="input-group w-100">
-                        <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search">
-                        <div class="input-group-append">
-                            <button class="form-control btn btn-black border border-black rounded-0" type="submit">
-                                <span class="icon">
-                                    <i class="fas fa-search"></i>
-                                </span>
-                            </button>
-                        </div>
+        <div class="row float-right"> 
+
+            <ul class="navbar-nav w-auto mx-auto">
+                <li class="nav-item dropdown">
+                    <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#" id="all-products-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filter by
+                    </a>
+                    <div class="dropdown-menu border-0" aria-labelledby="all-products-link">
+                        <a href="" class="dropdown-item">Price</a>
+                        <a href="" class="dropdown-item ">Rank</a>
+                        <a href="" class="dropdown-item ">Weight</a>
+                        <a href="" class="dropdown-item">All Products</a>
                     </div>
-                </form>
-            </div>
+                </li>
+            </ul>
         </div>
 
-            <div class="basecss">hello again</div>
-            <div class="gamecss">friend of a friend</div>
         
-            <div class="row">
-                <div class="col text-center mt-3">
-                    <h2 class="logo-font">Products</h2>
-                    <hr class="w-50 mb-1">
+        <div class="row">
+            <div class="col text-center mt-3">
+                <h2 class="logo-font">Products</h2>
+                <hr class="w-50 mb-1">
+            </div>
+        </div>
+    <!-- --------------- Sidebar Filters --------------- -->    
+    <div class="row">   
+
+        
+            
+        <div class="col-sm-3" id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Category
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    {% for category in categories %}
+                    <div class="card-body">
+                        <a href="">{{ category.friendly_name}}</a>
+                    </div>
+                    {% endfor %}
+
                 </div>
             </div>
-          
-                <div class="pagination">
-                    {{ page_obj.has_previous }}
-                    {{ page_obj.number }}
-                    {{ page_obj.paginator.count }}
-                    {{ page_obj.paginator.num_pages }}
-                    {{ page_obj.paginator.page_range }}
-                    {{ page_obj.has_next }}
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Mechanic
+                        </button>
+                    </h5>
                 </div>
-                 
-              
-
-            <div class="product-container col-10 offset-1">
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    {% for mechanic in mechanics %}
+                    <div class="card-body">
+                        <a href="">{{ mechanic.friendly_name}}</a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Collapsible Group Item #3
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                    <div class="card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                </div>
+            </div>
+        </div>      
+        
+        
+            <div class="col-sm-9">
                 <div class="row mt-1 mb-2"></div>
                     <div class="row">
                         {% for product in page_obj %}
@@ -73,6 +123,7 @@
                                         <div class="row">
                                             <div class="col">
                                                 <p class="lead mb-0 text-left font-weight-bold">€{{ product.price }}</p>
+                <!--    RANK MAY BE BETTER OPTION     -->                
                                                 {% if product.geek_rating %}
                                                     <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ product.geek_rating }} / 10</small>
                                                 {% else %}
@@ -107,7 +158,7 @@
                     </div>
                 </div>
             </div>
-
+    </div>
 <!-- TODO get bootstrap involved -->
 <!-- with help from https://samulinatri.com/blog/django-pagination-tutorial/ -->        
                 {% if page_obj.paginator.num_pages > 1 %}
@@ -129,3 +180,5 @@
                 {% endif %}
 
 {% endblock %}
+
+</body>
