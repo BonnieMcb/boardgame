@@ -1,5 +1,7 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.contrib import messages
+from django.db.models import Q
 from .models import Product
 from .models import Mechanic
 from .models import Category
@@ -10,7 +12,18 @@ from .models import Category
 def all_games(request):
     """ A view to show all products """
 
-    games = Product.objects.all().order_by('rank')  # Ignore lint error
+    games = Product.objects.all().order_by('rank')  # Ignore lint
+    query = None
+
+    if request.GET:
+        if 'q' in request.GET:
+            query = request.GET['q']
+            if not query:
+                messages.error(request, "You did not enter any search terms.")
+                return redirect(reverse('games'))
+
+            queries = Q(names__icontains=query)
+            games = games.filter(queries)
 
     paginator = Paginator(games, 48)  # Show 48 games per page
 
@@ -20,9 +33,14 @@ def all_games(request):
     mechanics = Mechanic.objects.all()
     categories = Category.objects.all()
 
-    return render(request, 'games/games.html', {
-        'page_obj': page_obj, 'mechanics': mechanics,
-        'categories': categories})
+    context = {
+        'page_obj': page_obj,
+        'mechanics': mechanics,
+        'categories': categories,
+        'search_term': query
+    }
+
+    return render(request, 'games/games.html', context)
 
 
 def game_detail(request, game_id):
