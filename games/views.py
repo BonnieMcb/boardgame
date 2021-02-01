@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Product
 from .models import Mechanic
 from .models import Category
@@ -8,6 +8,7 @@ from .models import Category
 
 
 def all_games(request):
+    """ A view to show all products """
 
     games = Product.objects.all().order_by('rank')  # Ignore lint error
 
@@ -22,3 +23,15 @@ def all_games(request):
     return render(request, 'games/games.html', {
         'page_obj': page_obj, 'mechanics': mechanics,
         'categories': categories})
+
+
+def game_detail(request, game_id):
+    """ A view to show individual product details """
+
+    game = get_object_or_404(Product, pk=game_id)
+
+    context = {
+       'product': game
+    }
+
+    return render(request, 'games/game_detail.html', context)
