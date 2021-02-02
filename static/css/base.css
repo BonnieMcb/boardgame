@@ -9,6 +9,14 @@ html {
     background-color: chocolate;
 }
 
+#game-title {
+    font-weight: 500;
+}
+
+.description-icon {
+    
+}
+
 /* -------------------------------- Media Queries */
 
 /* Slightly larger container on xl screens */
