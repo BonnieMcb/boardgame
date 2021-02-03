@@ -14,8 +14,14 @@ def all_games(request):
 
     games = Product.objects.all().order_by('rank')  # Ignore lint
     query = None
+    categories = None
 
     if request.GET:
+        if 'category' in request.GET:
+            category = request.GET['category']
+
+            games = games.filter(category_id__name__exact=category)
+
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:
@@ -37,7 +43,8 @@ def all_games(request):
         'page_obj': page_obj,
         'mechanics': mechanics,
         'categories': categories,
-        'search_term': query
+        'search_term': query,
+        'current_categories': categories,
     }
 
     return render(request, 'games/games.html', context)

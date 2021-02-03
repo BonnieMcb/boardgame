@@ -68,7 +68,7 @@
                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                     {% for category in categories %}
                     <div class="card-body">
-                        <a href="">{{ category.friendly_name}}</a>
+                        <a href="{% url 'games' %}?category={{ category.name }}">{{ category.friendly_name}}</a>
                     </div>
                     {% endfor %}
 
