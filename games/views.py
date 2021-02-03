@@ -48,8 +48,13 @@ def game_detail(request, game_id):
 
     game = get_object_or_404(Product, pk=game_id)
 
+    mechanics = Mechanic.objects.all()
+    categories = Category.objects.all()
+
     context = {
-       'product': game
+       'product': game,
+       'mechanics': mechanics,
+       'categories': categories,
     }
 
     return render(request, 'games/game_detail.html', context)
