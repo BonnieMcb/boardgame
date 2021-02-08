@@ -2,6 +2,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.db.models import Q
+from django.db.models.functions import Lower
 from .models import Product
 from .models import Mechanic
 from .models import Category
@@ -15,8 +16,23 @@ def all_games(request):
     games = Product.objects.all().order_by('rank')  # Ignore lint
     query = None
     categories = None
+    sort = None
+    direction = None
 
     if request.GET:
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+            if sortkey == 'name':
+                sortkey = 'lower_name'
+                games = games.annotate(lower_name=Lower('name'))
+
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+            games = games.order_by(sortkey)
+
         if 'category' in request.GET:
             category = request.GET['category']
 
@@ -44,12 +60,15 @@ def all_games(request):
     mechanics = Mechanic.objects.all()
     categories = Category.objects.all()
 
+    current_sorting = f'{sort}_{direction}'
+
     context = {
         'page_obj': page_obj,
         'mechanics': mechanics,
         'categories': categories,
         'search_term': query,
         'current_categories': categories,
+        'current_sorting': current_sorting,
     }
 
     return render(request, 'games/games.html', context)

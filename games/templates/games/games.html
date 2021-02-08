@@ -34,10 +34,10 @@
                         Filter by
                     </a>
                     <div class="dropdown-menu border-0" aria-labelledby="all-products-link">
-                        <a href="" class="dropdown-item">Price</a>
-                        <a href="" class="dropdown-item ">Rank</a>
-                        <a href="" class="dropdown-item ">Weight</a>
-                        <a href="" class="dropdown-item">All Products</a>
+                        <a href="{% url 'games' %}?sort=price&direction=asc" class="dropdown-item">Price</a>
+                        <a href="{% url 'games' %}?sort=rank&direction=desc" class="dropdown-item ">Rank</a>
+                        <a href="{% url 'games' %}?sort=weight&direction=asc" class="dropdown-item ">Weight</a>
+                        <a href="{% url 'games' %}" class="dropdown-item">All Products</a>
                     </div>
                 </li>
             </ul>
