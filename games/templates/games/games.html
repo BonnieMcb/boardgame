@@ -85,7 +85,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                     {% for mechanic in mechanics %}
                     <div class="card-body">
-                        <a href="">{{ mechanic.friendly_name}}</a>
+                        <a href="{% url 'games' %}?mechanic={{ mechanic.name }}">{{ mechanic.friendly_name}}</a>
                     </div>
                     {% endfor %}
                 </div>

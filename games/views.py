@@ -22,6 +22,11 @@ def all_games(request):
 
             games = games.filter(category_id__name__exact=category)
 
+        if 'mechanic' in request.GET:
+            mechanic = request.GET['mechanic']
+
+            games = games.filter(mechanic_id__name__exact=mechanic)
+
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:
