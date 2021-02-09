@@ -52,9 +52,6 @@
         </div>
     <!-- --------------- Sidebar Filters --------------- -->    
     <div class="row">   
-
-        
-            
         <div class="col-md-3" id="accordion">
             <div class="card">
                 <div class="card-header" id="headingOne">
@@ -129,6 +126,18 @@
                     <div class="row"><i class="fas fa-brain mr-2"></i> Complexity weight: {{ product.weight }}/5</div>
                     <div class="row"><i class="far fa-calendar-alt mr-2"></i> Year: {{ product.year }}</div>
                     <div class="row"><i class="fas fa-pencil-alt mr-2"></i> Designer: {{ product.designer }}</div>
+                        {% for category in product.categories %}
+                            <p>
+                                <a href="{% url 'games' %}?category={{ category.name }}">{{ category.friendly_name }}</a>
+                            </p>
+                        {% endfor %}
+
+                            {% for mechanic in product.mechanics %}
+                            <p>
+                                <a href="{% url 'games' %}?mechanic={{ mechanic.name }}">{{ mechanic.friendly_name }}</a>
+                            </p>
+                        {% endfor %}            
+
                     
                 </div>
             </div>

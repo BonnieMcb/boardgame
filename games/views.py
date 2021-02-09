@@ -57,6 +57,11 @@ def all_games(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
+    # add product categories for printing in template
+    for product in page_obj:
+        product.categories = product.category_id.all()
+        product.mechanics = product.mechanic_id.all()
+
     mechanics = Mechanic.objects.all()
     categories = Category.objects.all()
 
@@ -78,6 +83,9 @@ def game_detail(request, game_id):
     """ A view to show individual product details """
 
     game = get_object_or_404(Product, pk=game_id)
+
+    game.categories = game.category_id.all()
+    game.mechanics = game.mechanic_id.all()
 
     mechanics = Mechanic.objects.all()
     categories = Category.objects.all()

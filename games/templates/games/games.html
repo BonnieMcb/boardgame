@@ -52,9 +52,6 @@
         </div>
     <!-- --------------- Sidebar Filters --------------- -->    
     <div class="row">   
-
-        
-            
         <div class="col-sm-3" id="accordion">
             <div class="card">
                 <div class="card-header" id="headingOne">
@@ -64,16 +61,15 @@
                         </button>
                     </h5>
                 </div>
-
                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                     {% for category in categories %}
                     <div class="card-body">
                         <a href="{% url 'games' %}?category={{ category.name }}">{{ category.friendly_name}}</a>
                     </div>
                     {% endfor %}
-
                 </div>
             </div>
+
             <div class="card">
                 <div class="card-header" id="headingTwo">
                     <h5 class="mb-0">
@@ -90,6 +86,7 @@
                     {% endfor %}
                 </div>
             </div>
+
             <div class="card">
                 <div class="card-header" id="headingThree">
                     <h5 class="mb-0">
@@ -106,58 +103,75 @@
             </div>
         </div>      
         
+    <!-- --------------- Game card rows and columns --------------- -->    
         
-            <div class="col-sm-9">
-                <div class="row mt-1 mb-2"></div>
-                    <div class="row">
-                        {% for product in page_obj %}
-                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                                <div class="card h-100 border-0">
-                                    <a href="{% url 'game_detail' product.id %}">
-                                        <img class="card-img-top img-fluid" src="{{ product.image_url }}" alt="{{ product.names }}">
-                                    </a>
-                                    <div class="card-body pb-0">
-                                        <p class="mb-0 font-weight-bold">{{ product.names }}</p>
+    <div class="col-sm-9">
+        <div class="row mt-1 mb-2"></div>
+            <div class="row">
+                {% for product in page_obj %}
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                        <div class="card h-100 border-0">
+                            <a href="{% url 'game_detail' product.id %}"> <!-- Image that links to game detail page -->
+                                <img class="card-img-top img-fluid" src="{{ product.image_url }}" alt="{{ product.names }}">
+                            </a>
+                            <div class="card-body pb-0">
+                                <p class="mb-0 font-weight-bold">{{ product.names }}</p>
+                            </div>
+                            <div class="card-footer bg-white pt-0 border-0 text-left">
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="lead mb-0 text-left font-weight-bold">€{{ product.price }}</p>
+        <!--    RANK MAY BE BETTER OPTION     -->                
+                                        {% if product.geek_rating %}
+                                            <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ product.geek_rating }} / 10</small>
+                                        {% else %}
+                                            <small class="text-muted">No Rating</small>
+                                        {% endif %}
+
+                                        {% for category in product.categories %}
+                                            <p>
+                                                <a href="{% url 'games' %}?category={{ category.name }}">{{ category.friendly_name }}</a>
+                                            </p>
+                                        {% endfor %}
+
+                                         {% for mechanic in product.mechanics %}
+                                            <p>
+                                                <a href="{% url 'games' %}?mechanic={{ mechanic.name }}">{{ mechanic.friendly_name }}</a>
+                                            </p>
+                                        {% endfor %}
+
+                                        
                                     </div>
-                                    <div class="card-footer bg-white pt-0 border-0 text-left">
-                                        <div class="row">
-                                            <div class="col">
-                                                <p class="lead mb-0 text-left font-weight-bold">€{{ product.price }}</p>
-                <!--    RANK MAY BE BETTER OPTION     -->                
-                                                {% if product.geek_rating %}
-                                                    <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ product.geek_rating }} / 10</small>
-                                                {% else %}
-                                                    <small class="text-muted">No Rating</small>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
-                            {% if forloop.counter|divisibleby:1 %}
-                                <div class="col-12 d-sm-none mb-5">
-                                    <hr>
-                                </div>
-                            {% endif %}                        
-                            {% if forloop.counter|divisibleby:2 %}
-                                <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
-                                    <hr>
-                                </div>
-                            {% endif %}
-                            {% if forloop.counter|divisibleby:3 %}
-                                <div class="col-12 d-none d-lg-block d-xl-none mb-5">
-                                    <hr>
-                                </div>
-                            {% endif %}
-                            {% if forloop.counter|divisibleby:4 %}
-                                <div class="col-12 d-none d-xl-block mb-5">
-                                    <hr>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
+                        </div>
                     </div>
-                </div>
+                    {% if forloop.counter|divisibleby:1 %}
+                        <div class="col-12 d-sm-none mb-5">
+                            <hr>
+                        </div>
+                    {% endif %}                        
+                    {% if forloop.counter|divisibleby:2 %}
+                        <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
+                            <hr>
+                        </div>
+                    {% endif %}
+                    {% if forloop.counter|divisibleby:3 %}
+                        <div class="col-12 d-none d-lg-block d-xl-none mb-5">
+                            <hr>
+                        </div>
+                    {% endif %}
+                    {% if forloop.counter|divisibleby:4 %}
+                        <div class="col-12 d-none d-xl-block mb-5">
+                            <hr>
+                        </div>
+                    {% endif %}
+
+                {% endfor %}
             </div>
+        </div>
+    </div>
     </div>
 <!-- TODO get bootstrap involved -->
 <!-- with help from https://samulinatri.com/blog/django-pagination-tutorial/ -->        
