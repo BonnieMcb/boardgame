@@ -96,13 +96,6 @@
                     <a href=" {{product.image_url}} " target="_blank">
                         <img class="card-img-top img-fluid" src="{{ product.image_url }}" alt="{{ product.names }}">
                     </a>
-                </div>
-                <div class="col-lg-7">
-                    
-                    <div class="row">
-                        <div class="col-sm-6 font-weight-bold">€ {{ product.price }}</div>
-                        <div class="col-sm-6"> <button type="button" class="btn btn-warning">Add to Cart</button> </div>
-                    </div>
                     <div class="row"><i class="fas fa-child description-icon mr-2"></i> Recommended Age: {{ product.age }}+</div>
                     <div class="row"><i class="fas fa-user-friends mr-2"></i> Min. Players: {{ product.min_players }}</div>
                     <div class="row"><i class="fas fa-users mr-2"></i> Max. Players: {{ product.max_players }}</div>
@@ -117,12 +110,51 @@
                                 <a href="{% url 'games' %}?category={{ category.name }}">{{ category.friendly_name }}</a>
                             </p>
                         {% endfor %}
-
+    
                             {% for mechanic in product.mechanics %}
                             <p>
                                 <a href="{% url 'games' %}?mechanic={{ mechanic.name }}">{{ mechanic.friendly_name }}</a>
                             </p>
                         {% endfor %}            
+
+                </div>
+                
+
+                <div class="col-lg-7">
+                    
+                    <div class="row">
+                        <div class="col-sm-6 font-weight-bold">€ {{ product.price }}</div>
+                        <div class="col-sm-6"> <button type="button" class="btn btn-warning">Add to Cart</button> </div>
+
+                        <form class="form" action="{% url 'add_to_bag' product.id %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <p class="mt-3"><strong>Quantity:</strong></p>
+                                    <div class="form-group w-50">
+                                        <div class="input-group">
+                                            <input class="form-control qty_input" type="number" name="quantity" value="1" min="1" max="99" data-item_id="{{ product.id }}" id="id_qty_{{ product.id }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <a href="{% url 'games' %}" class="btn btn-outline-black rounded-0 mt-5">
+                                        <span class="icon">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </span>
+                                        <span class="text-uppercase">Keep Shopping</span>
+                                    </a>
+                                    <input type="submit" class="btn btn-warning" value="Add to Bag">
+                                </div>
+                                <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                            </div>
+                        </form>
+                    </div>
+
+                   
+
+
 
                     
                 </div>
