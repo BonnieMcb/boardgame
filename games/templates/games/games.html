@@ -27,16 +27,15 @@
     <div class="overlay"></div>
     <div class="container-fluid">
         <div class="row float-right"> 
-
             <ul class="navbar-nav w-auto mx-auto">
                 <li class="nav-item dropdown">
                     <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#" id="all-products-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Filter by
+                        Sort by
                     </a>
                     <div class="dropdown-menu border-0" aria-labelledby="all-products-link">
-                        <a href="{% url 'games' %}?sort=price&direction=asc" class="dropdown-item">Price</a>
-                        <a href="{% url 'games' %}?sort=rank&direction=desc" class="dropdown-item ">Rank</a>
-                        <a href="{% url 'games' %}?sort=weight&direction=asc" class="dropdown-item ">Weight</a>
+                        <a href="{% url 'games' %}?{{ get_params }}sort=price&direction=asc" class="dropdown-item">Price</a>
+                        <a href="{% url 'games' %}?{{ get_params }}sort=rank&direction=desc" class="dropdown-item ">Rank</a>
+                        <a href="{% url 'games' %}?{{ get_params }}sort=weight&direction=asc" class="dropdown-item ">Weight</a>
                         <a href="{% url 'games' %}" class="dropdown-item">All Products</a>
                     </div>
                 </li>
@@ -128,21 +127,19 @@
                                             <small class="text-muted">No Rating</small>
                                         {% endif %}
 
+                                        <!--    To print the categories and mechanics     -->  
                                         {% for category in product.categories %}
                                             <p>
                                                 <a href="{% url 'games' %}?category={{ category.name }}">{{ category.friendly_name }}</a>
                                             </p>
                                         {% endfor %}
 
-                                         {% for mechanic in product.mechanics %}
-                                            <p>
-                                                <a href="{% url 'games' %}?mechanic={{ mechanic.name }}">{{ mechanic.friendly_name }}</a>
-                                            </p>
+                                        {% for mechanic in product.mechanics %}
+                                        <p>
+                                            <a href="{% url 'games' %}?mechanic={{ mechanic.name }}">{{ mechanic.friendly_name }}</a>
+                                        </p>
                                         {% endfor %}
-
-                                        
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -172,7 +169,7 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
 <!-- TODO get bootstrap involved -->
 <!-- with help from https://samulinatri.com/blog/django-pagination-tutorial/ -->        
                 {% if page_obj.paginator.num_pages > 1 %}
