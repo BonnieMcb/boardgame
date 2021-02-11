@@ -203,4 +203,9 @@
 
 {% endblock %}
 
+{% block postloadjs %}
+{{ block.super }}
+{% include 'games/includes/quantity_input_script.html' %}
+{% endblock %}
+
 </body>
