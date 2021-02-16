@@ -1,0 +1,36 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.full-width-height {
+    height: 70vh;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+
+#top {
+    background-image: url(/media/centralperk.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.6;
+}
+
+#bottom {
+    background: yellowgreen;
+}
+
+
+#left {
+    background: brown;
+}
+
+#right {
+    background: cadetblue;
+}
+
+h2.title {
+    text-align: center;
+}
