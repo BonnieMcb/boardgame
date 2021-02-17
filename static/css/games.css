@@ -6,5 +6,29 @@
 }
 
 .card-body {
-    padding: 0.25rem;
+    /*padding: 0.25rem;*/
+}
+
+.game-card  {
+    /*height: 400px;*/
+}
+
+.card-footer {
+    /*width: 100%;
+    bottom: 1rem;*/
+}
+
+.game-img-container {
+    height: 300px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.game-img-container img {
+    max-height: calc(300px - 2.5rem);
+    object-fit: contain;
+}
+
+.game-title {
+    font-size: 18px;
 }

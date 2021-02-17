@@ -22,8 +22,6 @@
                 
 
 {% block content %}
-
-
     <div class="overlay"></div>
     <div class="container-fluid">
         <div class="row float-right"> 
@@ -41,154 +39,86 @@
                 </li>
             </ul>
         </div>
-
-        
         <div class="row">
             <div class="col text-center mt-3">
                 <h2 class="logo-font">Products</h2>
                 <hr class="w-50 mb-1">
             </div>
         </div>
-    <!-- --------------- Sidebar Filters --------------- -->    
-    <div class="row">   
-        <div class="col-sm-3" id="accordion">
-            <div class="card">
-                <div class="card-header" id="headingOne">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Category
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                    {% for category in categories %}
-                    <div class="card-body">
-                        <a href="{% url 'games' %}?category={{ category.name }}">{{ category.friendly_name}}</a>
+        <div class="row">   
+            <!-- --------------- Sidebar Filters --------------- -->    
+            <div class="col-sm-3" id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Category</button>
+                        </h5>
                     </div>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="headingTwo">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Mechanic
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                    {% for mechanic in mechanics %}
-                    <div class="card-body">
-                        <a href="{% url 'games' %}?mechanic={{ mechanic.name }}">{{ mechanic.friendly_name}}</a>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="headingThree">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Collapsible Group Item #3
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                    <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        {% for category in categories %}
+                        <div class="card-body">
+                            <a href="{% url 'games' %}?category={{ category.name }}">{{ category.friendly_name}}</a>
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
-            </div>
-        </div>      
-        
-    <!-- --------------- Game card rows and columns --------------- -->    
-        
-    <div class="col-sm-9">
-        <div class="row mt-1 mb-2"></div>
-            <div class="row">
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Mechanic</button>
+                        </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        {% for mechanic in mechanics %}
+                        <div class="card-body">
+                            <a href="{% url 'games' %}?mechanic={{ mechanic.name }}">{{ mechanic.friendly_name}}</a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>      
+            <!-- --------------- Game card rows and columns --------------- -->    
+            <div class="col-sm-9">
+                <div class="row">
                 {% for product in page_obj %}
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="card h-100 border-0">
+                    <div class="card col-xl-3 col-md-4 my-3 border-0">
+                        <div class="card-body game-img-container bg-white">
                             <a href="{% url 'game_detail' product.id %}"> <!-- Image that links to game detail page -->
-                                <img class="card-img-top img-fluid" src="{{ product.image_url }}" alt="{{ product.names }}">
+                                <img class="card-img-top" src="{{ product.image_url }}" alt="{{ product.names }}">
                             </a>
-                            <div class="card-body pb-0">
-                                <p class="mb-0 font-weight-bold">{{ product.names }}</p>
-                            </div>
-                            <div class="card-footer bg-white pt-0 border-0 text-left">
-                                <div class="row">
-                                    <div class="col">
-                                        <p class="lead mb-0 text-left font-weight-bold">€{{ product.price }}</p>
-        <!--    RANK MAY BE BETTER OPTION     -->                
-                                        {% if product.geek_rating %}
-                                            <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ product.geek_rating }} / 10</small>
-                                        {% else %}
-                                            <small class="text-muted">No Rating</small>
-                                        {% endif %}
-
-                                        <!--    To print the categories and mechanics     -->  
-                                        {% for category in product.categories %}
-                                            <p>
-                                                <a href="{% url 'games' %}?category={{ category.name }}">{{ category.friendly_name }}</a>
-                                            </p>
-                                        {% endfor %}
-
-                                        {% for mechanic in product.mechanics %}
-                                        <p>
-                                            <a href="{% url 'games' %}?mechanic={{ mechanic.name }}">{{ mechanic.friendly_name }}</a>
-                                        </p>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'game_detail' product.id %}">
+                                <p class="text-truncate game-title">{{ product.names }}</p>
+                            </a>
+                            <p class="lead mb-1 text-right font-weight-bold">€{{ product.price }}</p>
+                            <a href="#" class="btn btn-primary float-right">Add to Cart</a>
                         </div>
                     </div>
-                    {% if forloop.counter|divisibleby:1 %}
-                        <div class="col-12 d-sm-none mb-5">
-                            <hr>
-                        </div>
-                    {% endif %}                        
-                    {% if forloop.counter|divisibleby:2 %}
-                        <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
-                            <hr>
-                        </div>
-                    {% endif %}
-                    {% if forloop.counter|divisibleby:3 %}
-                        <div class="col-12 d-none d-lg-block d-xl-none mb-5">
-                            <hr>
-                        </div>
-                    {% endif %}
-                    {% if forloop.counter|divisibleby:4 %}
-                        <div class="col-12 d-none d-xl-block mb-5">
-                            <hr>
-                        </div>
-                    {% endif %}
-
                 {% endfor %}
+                </div>
             </div>
         </div>
     </div>
-</div>
 <!-- TODO get bootstrap involved -->
 <!-- with help from https://samulinatri.com/blog/django-pagination-tutorial/ -->        
-                {% if page_obj.paginator.num_pages > 1 %}
+    {% if page_obj.paginator.num_pages > 1 %}
 
-                    {% if page_obj.has_previous %}
+        {% if page_obj.has_previous %}
 
-                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
 
-                    {% endif %}
+        {% endif %}
 
-                    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
 
-                    {% if page_obj.has_next %}
+        {% if page_obj.has_next %}
 
-                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
 
-                    {% endif %}
+        {% endif %}
 
-                {% endif %}
+    {% endif %}
 
 {% endblock %}
 
