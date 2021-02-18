@@ -4,6 +4,7 @@ from .models import Product, Category, Mechanic
 # Register your models here.
 class ProductAdmin(admin.ModelAdmin):
     list_display = (
+        'id',
         'names',
         'price',
     )

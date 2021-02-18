@@ -1,15 +1,103 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'membership/css/membership.css' %}">
+{% endblock %}
 
 {% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
+<div class="container header-container mt-5">
+    <div class="row">
+        <div class="col text-center mb-4">
+            <h2 class="logo-font">Membership</h2>
+            <hr class="w-50">
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block content %}
-membership
+
+<div class="container">
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-10">
+            <p>Hi, {{ user }}!</p>
+            <p>You are currently a Member.</p>
+            {% if expiry %}
+            <p>Your membership expires on {{ expiry }}.</p>
+            {% endif %}
+        </div>
+        <hr class="w-50">
+    </div>
+    <div class="row justify-content-center">
+        <div class="card-deck col-lg-10 col-md-12">
+            <div class="card bg-light">
+                <div class="card-header member-header">Registered User</div>
+                <div class="card-body">
+                    <p>Access to Open Events</p>
+                    <hr>
+                    <p>Newsletter and Offers via Email</p>
+                </div>
+            </div>
+            <div class="card bg-warning">
+                <div class="card-header member-header">Member</div>
+                <div class="card-body">
+                    <p>10% Shop Discount</p>
+                    <hr>
+                    <p>Member-only Events</p>
+                    <hr>
+                    <p>Member-only Offers</p>
+                </div>
+                <div class="card-footer">
+                    <form class="form" action="{% url 'add_to_bag' 5000 %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-row mb-3 justify-content-center">
+                            <select name="membership_id">
+                                <option selected value="5000">1 Month (€10)</option>
+                                <option value="5001">6 Months (€50)</option>
+                                <option value="5002">12 Months (€100)</option>
+                            </select>
+                        </div>
+                        <div class="form-row justify-content-center">
+                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                            <input type="hidden" name="quantity" value="1">
+                            <input type="submit" class="btn btn-primary float-right" value="Buy Now">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card bg-success">
+                <div class="card-header member-header">Premium Member</div>
+                <div class="card-body">
+                    <p>20% Shop Discount</p>
+                    <hr>
+                    <p>Premium Member-only Events</p>
+                    <hr>
+                    <p>Exclusive Offers</p>
+                    <hr>
+                    <p>First priority on Bookings</p>
+                </div>
+                <div class="card-footer">
+                    <form class="form" action="{% url 'add_to_bag' 5000 %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-row mb-3 justify-content-center">
+                            <select name="membership_id">
+                                <option selected value="5003">1 Month (€15)</option>
+                                <option value="5004">6 Months (€80)</option>
+                                <option value="5005">12 Months (€160)</option>
+                            </select>
+                        </div>
+                        <div class="form-row justify-content-center">
+                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                            <input type="hidden" name="quantity" value="1">
+                            <input type="submit" class="btn btn-primary float-right" value="Upgrade">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}

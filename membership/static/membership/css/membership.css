@@ -1,0 +1,8 @@
+.member-header {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.card.current-membership {
+    border-width: 5px !important;
+}

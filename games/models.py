@@ -30,9 +30,9 @@ class Mechanic(models.Model):
 
 class Product(models.Model):
     category_id = models.ManyToManyField(
-        Category, related_name='product_category_id')
+        Category, related_name='product_category_id', blank=True)
     mechanic_id = models.ManyToManyField(
-        Mechanic, related_name='product_mechanic_id')
+        Mechanic, related_name='product_mechanic_id', blank=True)
     names = models.CharField(max_length=254)
     min_players = models.IntegerField(null=True, blank=True)
     max_players = models.IntegerField(null=True, blank=True)
@@ -40,7 +40,7 @@ class Product(models.Model):
     min_time = models.IntegerField(null=True, blank=True)
     max_time = models.IntegerField(null=True, blank=True)
     age = models.IntegerField(null=True, blank=True)
-    price = models.DecimalField(max_digits=4, decimal_places=2)
+    price = models.DecimalField(max_digits=5, decimal_places=2)
     image_url = models.URLField(max_length=500, blank=True, default=None)
     rank = models.IntegerField(null=True, blank=True)
     bgg_url = models.URLField(max_length=500, blank=True, default=None)
@@ -55,6 +55,9 @@ class Product(models.Model):
     designer = models.CharField(max_length=254, blank=True, default=None)
     weight = models.DecimalField(
         max_digits=4, decimal_places=2, null=True, blank=True)
+
+    # to make the membership invisible in the shop page
+    is_visible = models.BooleanField(default=True)
 
     def __str__(self):
         return self.names

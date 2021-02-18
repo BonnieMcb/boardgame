@@ -6,7 +6,12 @@ from django.conf import settings
 from .forms import OrderForm
 from .models import Order, OrderLineItem
 from games.models import Product
+from membership.models import Membership
 from bag.contexts import bag_contents
+
+# for membership calculations
+from dateutil.relativedelta import *
+from datetime import datetime
 
 import stripe
 import json
@@ -122,6 +127,58 @@ def checkout(request):
 # pk_test_51IK7S8Hnux12jyTLfrxMKKSARKeSGXTKtZcTKSSveFCyKkgFABaBmzZnOdbj2Z39FJguEJdC1uQOR1ZdSNtEc3w700zLl8uXbt
 
 
+def try_apply_purchased_membership(request, bag):
+
+    MEMBERSHIP_MIN_ID = 5000
+
+    # check if there was a membership in the bag
+    for item_id in list(bag.keys()):
+        item_id_int = int(item_id)
+        if item_id_int >= MEMBERSHIP_MIN_ID:
+
+            membership_length = None
+            is_premium = False
+
+            # TODO: this code is purposefully simple to avoid adding a whole new payment concept
+            if item_id_int == 5000:
+                membership_length = 1
+            elif item_id_int == 5001:
+                membership_length = 6
+            elif item_id_int == 5002:
+                membership_length = 12
+            elif item_id_int == 5003:
+                membership_length = 1
+                is_premium = True
+            elif item_id_int == 5004:
+                membership_length = 6
+                is_premium = True
+            elif item_id_int == 5005:
+                membership_length = 12
+                is_premium = True
+
+            if membership_length:
+
+                # check for existing membership for this user
+                # existing = Membership.objects.get(user=request.user)
+
+                # calculate end date
+                expiry = datetime.now()
+                # if existing:
+                #     # only extend currently-active memberships
+                #     if existing.expiry > expiry:
+                #         expiry = existing.expiry
+
+                expiry = expiry + relativedelta(months=+membership_length)
+
+                # # add the membership entry
+                new_membership = Membership(
+                    user=request.user, 
+                    expiry=expiry,
+                    is_premium=is_premium)
+
+                new_membership.save()
+
+
 def checkout_success(request, order_number):
     """
     Handle successful checkouts
@@ -133,6 +190,10 @@ def checkout_success(request, order_number):
         email will be sent to {order.email}.')
 
     if 'bag' in request.session:
+        # check if we just redeemed any memberships, and apply them if we did
+        bag = request.session['bag']
+        try_apply_purchased_membership(request, bag)
+
         del request.session['bag']
 
     template = 'checkout/checkout_success.html'
