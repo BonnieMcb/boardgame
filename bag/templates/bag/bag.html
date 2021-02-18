@@ -61,12 +61,15 @@
                             {% endfor %}
                             <tr>
                                 <td colspan="5" class="pt-5 text-right">
-                                    <h6><strong>Bag Total: ${{ total|floatformat:2 }}</strong></h6>
+                                    <h6><strong>Bag Total: €{{ total|floatformat:2 }}</strong></h6>
                                     
-                                    <h4 class="mt-4"><strong>Grand Total: ${{ grand_total|floatformat:2 }}</strong></h4>
+                                    {% if total_discount %}
+                                    <h6 class="mt-4"><strong>Total Discount: €{{ total_discount|floatformat:2 }}</strong></h6>
+                                    {% endif %}
+                                    <h4 class="mt-4"><strong>Grand Total: €{{ grand_total|floatformat:2 }}</strong></h4>
                                     <!-- for membership app {% if free_delivery_delta > 0 %}
                                         <p class="mb-1 text-danger">
-                                            Become a member to buy games at at discount and play at our cafe for free! <strong>${{ free_delivery_delta }}</strong>
+                                            Become a member to buy games at at discount and play at our cafe for free! <strong>€{{ free_delivery_delta }}</strong>
                                         </p>
                                     {% endif %} -->
                                 </td>

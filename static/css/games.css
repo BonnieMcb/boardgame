@@ -32,3 +32,11 @@
 .game-title {
     font-size: 18px;
 }
+
+#accordion .collapse {
+    max-height: 300px;
+}
+
+#accordion .collapsing {
+    max-height: 300px;
+}

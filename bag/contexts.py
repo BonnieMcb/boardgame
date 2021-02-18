@@ -32,15 +32,21 @@ def bag_contents(request):
     product_count = 0
     bag = request.session.get('bag', {})
 
+    total_discount = 0
+
     for item_id, quantity in bag.items():
         product = get_object_or_404(Product, pk=item_id)
 
         # apply membership discounts, if needed
+        unit_price = product.price
+
         discount = get_discount(request)
         if product.id < 5000:
             product.discounted_price = round(Decimal(discount * float(product.price)), 2)
+            unit_price = product.discounted_price
 
-        subtotal = quantity * (product.discounted_price or product.price)
+        subtotal = quantity * unit_price
+        total_discount += (subtotal - (quantity * product.price))
 
         total += subtotal
         product_count += quantity
@@ -58,6 +64,7 @@ def bag_contents(request):
         'total': total,
         'product_count': product_count,
         'grand_total': grand_total,
+        'total_discount': total_discount
     }
 
     return context

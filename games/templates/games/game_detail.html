@@ -91,7 +91,11 @@
                 </div>
                 <div class="col-lg-7">
                     <div class="row">
-                        <div class="col-sm-6 font-weight-bold">€ {{ product.price }}</div>
+                        {% if product.discounted_price %}
+                        <div class="col-sm-6 font-weight-bold">€{{ product.discounted_price }}<span class="ml-2 text-muted font-weight-normal"><del>€{{ product.price }}</del></span></div>
+                        {% else %}
+                        <div class="col-sm-6 font-weight-bold">€{{ product.price }}</div>
+                        {% endif %}
                         <form class="form" action="{% url 'add_to_bag' product.id %}" method="POST">
                             {% csrf_token %}
                             <div class="form-row">

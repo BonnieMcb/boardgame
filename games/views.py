@@ -103,6 +103,11 @@ def game_detail(request, game_id):
 
     game = get_object_or_404(Product, pk=game_id)
 
+    # apply membership discounts if needed
+    discount = get_discount(request)
+    if discount < 1.0:
+        game.discounted_price = round(discount * float(game.price), 2)
+
     # To pass through the cats and mechs for each game
     game.categories = game.category_id.all()
     game.mechanics = game.mechanic_id.all()

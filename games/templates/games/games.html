@@ -37,9 +37,9 @@
                             <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Category</button>
                         </h5>
                     </div>
-                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div id="collapseOne" class="collapse overflow-auto" aria-labelledby="headingOne" data-parent="#accordion">
                         {% for category in categories %}
-                        <div class="card-body">
+                        <div class="card-body py-2">
                             <a href="{% url 'games' %}?category={{ category.name }}">{{ category.friendly_name}}</a>
                         </div>
                         {% endfor %}
@@ -51,9 +51,9 @@
                             <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Mechanic</button>
                         </h5>
                     </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div id="collapseTwo" class="collapse overflow-auto" aria-labelledby="headingTwo" data-parent="#accordion">
                         {% for mechanic in mechanics %}
-                        <div class="card-body">
+                        <div class="card-body py-2">
                             <a href="{% url 'games' %}?mechanic={{ mechanic.name }}">{{ mechanic.friendly_name}}</a>
                         </div>
                         {% endfor %}
