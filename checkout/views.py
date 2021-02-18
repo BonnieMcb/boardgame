@@ -72,15 +72,7 @@ def checkout(request):
                             quantity=item_data,
                         )
                         order_line_item.save()
-                    # else:
-                    #     for size, quantity in item_data['items_by_size'].items():
-                    #         order_line_item = OrderLineItem(
-                    #             order=order,
-                    #             product=product,
-                    #             quantity=quantity,
-                    #             product_size=size,
-                    #         )
-                    #         order_line_item.save()
+
                 except Product.DoesNotExist:
                     messages.error(request, (
                         "One of the products in your bag wasn't found in our database. "
@@ -136,47 +128,47 @@ def try_apply_purchased_membership(request, bag):
         item_id_int = int(item_id)
         if item_id_int >= MEMBERSHIP_MIN_ID:
 
-            membership_length = None
+            len = None
             is_premium = False
 
             # TODO: this code is purposefully simple to avoid adding a whole new payment concept
             if item_id_int == 5000:
-                membership_length = 1
+                len = 1
             elif item_id_int == 5001:
-                membership_length = 6
+                len = 6
             elif item_id_int == 5002:
-                membership_length = 12
+                len = 12
             elif item_id_int == 5003:
-                membership_length = 1
+                len = 1
                 is_premium = True
             elif item_id_int == 5004:
-                membership_length = 6
+                len = 6
                 is_premium = True
             elif item_id_int == 5005:
-                membership_length = 12
+                len = 12
                 is_premium = True
 
-            if membership_length:
+            if len:
+
+                expiry = datetime.now()
 
                 # check for existing membership for this user
-                # existing = Membership.objects.get(user=request.user)
+                member_obj = Membership.objects.get(user=request.user)
 
                 # calculate end date
-                expiry = datetime.now()
-                # if existing:
-                #     # only extend currently-active memberships
-                #     if existing.expiry > expiry:
-                #         expiry = existing.expiry
+                if member_obj:
+                    current_datetime = datetime.combine(member_obj.expiry, datetime.min.time())
+                    if current_datetime > expiry:
+                        expiry = current_datetime
+                else:
+                    member_obj = Membership(
+                        user=request.user)
 
-                expiry = expiry + relativedelta(months=+membership_length)
+                member_obj.expiry = (expiry + relativedelta(months=+len)).date()
+                member_obj.is_premium = is_premium
 
-                # # add the membership entry
-                new_membership = Membership(
-                    user=request.user, 
-                    expiry=expiry,
-                    is_premium=is_premium)
-
-                new_membership.save()
+                # insert or update membership entry
+                member_obj.save()
 
 
 def checkout_success(request, order_number):

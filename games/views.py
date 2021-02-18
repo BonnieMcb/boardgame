@@ -7,6 +7,9 @@ from .models import Product
 from .models import Mechanic
 from .models import Category
 
+from decimal import *
+from bag.contexts import get_discount
+
 # Create your views here.
 
 
@@ -53,6 +56,12 @@ def all_games(request):
                     sortkey = f'-{sortkey}'
             games = games.order_by(sortkey)
 
+    # apply membership discounts if needed
+    discount = get_discount(request)
+    if discount < 1.0:
+        for game in games:
+            game.discounted_price = round(discount * float(game.price), 2)
+
     paginator = Paginator(games, 48)  # Show 48 games per page
 
     page_number = request.GET.get('page')
@@ -83,7 +92,7 @@ def all_games(request):
         'categories': categories,
         'search_term': query,
         'get_params': get_params,
-        'current_sorting': current_sorting,
+        'current_sorting': current_sorting
     }
 
     return render(request, 'games/games.html', context)

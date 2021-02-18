@@ -30,7 +30,7 @@ def add_to_bag(request, item_id):
     bag = request.session.get('bag', {})
 
     item_id_int = int(item_id)
-    if item_id_int >= 5000:
+    if item_id_int >= MEMBERSHIP_ID_MIN:
         handle_membership(request, bag)
     else:
         if item_id in list(bag.keys()):
