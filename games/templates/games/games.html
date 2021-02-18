@@ -92,7 +92,15 @@
                                 <p class="text-truncate game-title">{{ product.names }}</p>
                             </a>
                             <p class="lead mb-1 text-right font-weight-bold">€{{ product.price }}</p>
-                            <a href="#" class="btn btn-primary float-right">Add to Bag</a>
+
+                            <form class="form float-right" action="{% url 'add_to_bag' product.id %}" method="POST">
+                                {% csrf_token %}
+                                <div class="form-row">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                    <input type="submit" class="btn btn-primary" value="Add to Bag">
+                                </div>
+                            </form>
                         </div>
                     </div>
                 {% endfor %}
