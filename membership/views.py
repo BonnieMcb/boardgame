@@ -10,8 +10,10 @@ def membership(request):
     context = dict()
     context["user"] = request.user
 
-    user_membership = Membership.objects.get(user=request.user)
-    if user_membership:
+    try:
+        user_membership = Membership.objects.get(user=request.user)
         context["expiry"] = user_membership.expiry
+    except (Membership.DoesNotExist, TypeError) as e:
+        context["expiry"] = None
 
     return render(request, 'membership/membership.html', context)
