@@ -3,97 +3,76 @@
 
 
 {% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
+<div class="container header-container mt-5">
+    <div class="row">
+        <div class="col text-center mb-4">
+            <h2 class="logo-font">Shopping Bag</h2>
+            <hr class="w-50">
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block content %}
 <div class="overlay">
     <div class="container mb-2">
-        <div class="row">
-            <div class="col">
-                <hr>
-                <h2 class="mb-4">Shopping Bag</h2>
-                <hr>
+        <div class="row justify-content-center mb-3">
+            <div class="col-lg-8">
+                <a href="{% url 'games' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                    <span class="icon">
+                        <i class="fas fa-chevron-left"></i>
+                    </span>
+                    <span class="">Keep Shopping</span>
+                </a>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
                 {% if bag_items %}
-                    <div class="table-responsive rounded">
-                       <table class="table table-sm table-borderless">
-                            <thead class="text-black">
+                    <div class="table-responsive">
+                       <table class="table table-sm table-bordered table-striped">
+                            <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Product Info</th>
-                                    <th scope="col"></th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Qty</th>
-                                    <th scope="col">Subtotal</th>
+                                    <th scope="col" colspan="2">Product Info</th>
+                                    <th scope="col" class="text-right">Price</th>
+                                    <th scope="col" class="text-right">Qty</th>
+                                    <th scope="col" class="text-right">Subtotal</th>
                                 </tr>
                             </thead>
-
                             {% for item in bag_items %}
                                 <tr>
-                                    <td class="p-3 w-25">
-                                        <img class="img-fluid rounded" src="{{ item.product.image_url }}">
+                                    <td class="px-5 py-3 w-25 align-middle">
+                                        <img class="img-fluid" src="{{ item.product.image_url }}">
                                     </td>
-                                    <td class="py-3">
+                                    <td class="py-3 align-middle">
                                         <p class="my-0"><strong>{{ item.product.names }}</strong></p>
                                     </td>
-                                    <td class="py-3">
+                                    <td class="py-3 align-middle text-right">
                                         {% if item.product.discounted_price %}
                                         <p class="my-0">€{{ item.product.discounted_price }}<span class="ml-2 text-muted font-weight-normal"><del>€{{ item.product.price }}</del></span></p>
                                         {% else %}
                                         <p class="my-0">€{{ item.product.price }}</p>
                                         {% endif %}
                                     </td>
-                                    <td class="py-3 w-25">
+                                    <td class="py-3 align-middle text-right">
                                         <p class="my-0">{{ item.quantity }}</p>
                                     </td>
-                                    <td class="py-3">
+                                    <td class="py-3 align-middle text-right">
                                         <p class="my-0">€{{ item.subtotal }}</p>
                                     </td>
                                 </tr>
                             {% endfor %}
                             <tr>
-                                <td colspan="5" class="pt-5 text-right">
-                                    <h6><strong>Bag Total: €{{ total|floatformat:2 }}</strong></h6>
-                                    
+                                <td colspan="5" class="p-4 text-right">
+                                    <h6><strong>Total: €{{ gross_total|floatformat:2 }}</strong></h6>
                                     {% if total_discount %}
-                                    <h6 class="mt-4"><strong>Total Discount: €{{ total_discount|floatformat:2 }}</strong></h6>
+                                    <h6 class="mt-4"><strong>Discount: €{{ total_discount|floatformat:2 }}</strong></h6>
                                     {% endif %}
                                     <h4 class="mt-4"><strong>Grand Total: €{{ grand_total|floatformat:2 }}</strong></h4>
-                                    <!-- for membership app {% if free_delivery_delta > 0 %}
-                                        <p class="mb-1 text-danger">
-                                            Become a member to buy games at at discount and play at our cafe for free! <strong>€{{ free_delivery_delta }}</strong>
-                                        </p>
-                                    {% endif %} -->
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="5" class="text-right">
-                                    <a href="{% url 'games' %}" class="btn btn-outline-black rounded-0 btn-lg">
-                                        <span class="icon">
-                                            <i class="fas fa-chevron-left"></i>
-                                        </span>
-                                        <span class="text-uppercase">Keep Shopping</span>
-                                    </a>
-                                    <a href="{% url 'checkout' %}" class="btn btn-black rounded-0 btn-lg">
-                                        <span class="text-uppercase">Secure Checkout</span>
-                                        <span class="icon">
-                                            <i class="fas fa-lock"></i>
-                                        </span>
-                                    </a>
                                 </td>
                             </tr>
                         </table>
                     </div>
-                    
-
                 {% else %}
                     <p class="lead mb-5">Your bag is empty</p>
                     <a href="{% url 'games' %}" class="btn btn-outline-black rounded-0 btn-lg">
@@ -103,6 +82,16 @@
                         <span class="text-uppercase">Keep Shopping</span>
                     </a>
                 {% endif %}
+            </div>
+        </div>
+        <div class="row justify-content-center mt-3">
+            <div class="col-lg-8">
+                <a href="{% url 'checkout' %}" class="btn btn-primary float-right">
+                    <span>Secure Checkout</span>
+                    <span class="icon">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                </a>
             </div>
         </div>
     </div>

@@ -10,19 +10,23 @@ from decimal import *
 
 def get_discount(request):
     user = request.user
+    discount = 1.0
 
-    user_membership = Membership.objects.get(user=user)
-    if user_membership:
-        current_date = datetime.now().date()
-        if current_date < user_membership.expiry:
-            # 20% for premium members
-            if user_membership.is_premium:
-                return 0.8
-            # 10% for members
-            else:
-                return 0.9
+    if user:
+        try:
+            user_membership = Membership.objects.get(user=user)
+            current_date = datetime.now().date()
+            if current_date < user_membership.expiry:
+                # 20% for premium members
+                if user_membership.is_premium:
+                    discount = 0.8
+                # 10% for members
+                else:
+                    discount = 0.9
+        except Membership.DoesNotExist:
+            discount = 1.0
 
-    return 1.0
+    return discount
 
 
 def bag_contents(request):
@@ -33,6 +37,7 @@ def bag_contents(request):
     bag = request.session.get('bag', {})
 
     total_discount = 0
+    gross_total = 0
 
     for item_id, quantity in bag.items():
         product = get_object_or_404(Product, pk=item_id)
@@ -46,7 +51,7 @@ def bag_contents(request):
             unit_price = product.discounted_price
 
         subtotal = quantity * unit_price
-        total_discount += (subtotal - (quantity * product.price))
+        gross_total += quantity * product.price
 
         total += subtotal
         product_count += quantity
@@ -58,12 +63,14 @@ def bag_contents(request):
         })
 
     grand_total = total
+    total_discount = grand_total - gross_total
 
     context = {
         'bag_items': bag_items,
         'total': total,
         'product_count': product_count,
         'grand_total': grand_total,
+        'gross_total': gross_total,
         'total_discount': total_discount
     }
 
