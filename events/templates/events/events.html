@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!-- {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'events/css/events.css' %}">
+{% endblock %} -->
+
+{% block page_header %}
+<div class="container header-container mt-5">
+    <div class="row">
+        <div class="col text-center mb-4">
+            <h2 class="logo-font">Events</h2>
+            <hr class="w-100">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-10">
+            <p>See below for our selection of up-coming events.</p>
+            <p>Some events are open to all, some are members only. </p>
+            <p>We'd love to see you soon at the Hexagon! All you need to do to join an event is create an account (or log in) and register yourself for the event that takes your fancy.</p>
+        </div>
+        <hr class="w-50">
+    </div>
+    <div class="row justify-content-center">
+        <div class="card-deck col-lg-10 col-md-12">
+            
+
+                       
+            
+            {% for event in events %}
+            <pre>
+            START LIST
+            {% for user in event.sign_list %}
+            user: {{ user }}
+            {% endfor %}
+            END LIST
+            </pre>
+            <div class="card bg-warning">
+                <div>
+                    <h3 class="text-center logo-font">{{ event.name }}</h3>
+                </div>
+                <hr class="w50" >
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <p>{{ event.description }}</p>
+                        </div>
+                        <div class="col-4">
+                            <p>{{ event.datetime }}</p>
+                            <p>This event is open to: 
+                                {% if event.member_only %}
+                                <strong>members only</strong>
+                                {% else %}
+                                <strong>everyone</strong>
+                                {% endif %}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <p>{{ event.datetime }}</p>
+                </div>
+                <div class="card-footer">
+                    <form class="form" action="{% url 'sign' event.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-row justify-content-center">
+                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                            <input type="submit" class="btn btn-primary float-right" value="Sign Up">
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <form class="form" action="{% url 'unsign' event.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-row justify-content-center">
+                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                            <input type="submit" class="btn btn-primary float-right" value="Unsign">
+                        </div>
+                    </form>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

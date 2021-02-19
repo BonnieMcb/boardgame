@@ -19,3 +19,7 @@ class Events(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        print("save the daaaaate")
+
