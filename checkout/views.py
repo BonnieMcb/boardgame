@@ -153,17 +153,15 @@ def try_apply_purchased_membership(request, bag):
                 expiry = datetime.now()
 
                 # check for existing membership for this user
-                member_obj = Membership.objects.get(user=request.user)
-
-                # calculate end date
-                if member_obj:
+                try:
+                    member_obj = Membership.objects.get(user=request.user)
                     current_datetime = datetime.combine(member_obj.expiry, datetime.min.time())
                     if current_datetime > expiry:
                         expiry = current_datetime
-                else:
-                    member_obj = Membership(
-                        user=request.user)
+                except Membership.DoesNotExist:
+                    member_obj = Membership(user=request.user)
 
+                # calculate end date
                 member_obj.expiry = (expiry + relativedelta(months=+len)).date()
                 member_obj.is_premium = is_premium
 
