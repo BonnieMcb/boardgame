@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 
-<!-- {% block extra_css %}
+{% block extra_css %}
     <link rel="stylesheet" href="{% static 'events/css/events.css' %}">
-{% endblock %} -->
+{% endblock %}
 
 {% block page_header %}
 <div class="container header-container mt-5">
@@ -34,24 +34,17 @@
                        
             
             {% for event in events %}
-            <pre>
-            START LIST
-            {% for user in event.sign_list %}
-            user: {{ user }}
-            {% endfor %}
-            END LIST
-            </pre>
             <div class="card bg-warning">
                 <div>
-                    <h3 class="text-center logo-font">{{ event.name }}</h3>
+                    <h3 class="text-center logo-font mt-2">{{ event.name }}</h3>
                 </div>
                 <hr class="w50" >
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-sm-8">
                             <p>{{ event.description }}</p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-sm-4">
                             <p>{{ event.datetime }}</p>
                             <p>This event is open to: 
                                 {% if event.member_only %}
@@ -61,24 +54,20 @@
                                 {% endif %}</p>
                         </div>
                     </div>
-                    <hr>
-                    <p>{{ event.datetime }}</p>
-                </div>
-                <div class="card-footer">
-                    <form class="form" action="{% url 'sign' event.id %}" method="POST">
-                        {% csrf_token %}
-                        <div class="form-row justify-content-center">
-                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                            <input type="submit" class="btn btn-primary float-right" value="Sign Up">
-                        </div>
-                    </form>
                 </div>
                 <div class="card-footer">
                     <form class="form" action="{% url 'unsign' event.id %}" method="POST">
                         {% csrf_token %}
-                        <div class="form-row justify-content-center">
+                        <div class="justify-content-center">
                             <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                            <input type="submit" class="btn btn-primary float-right" value="Unsign">
+                            <input type="submit" class="m-2 btn btn-primary float-right" value="Unsign">
+                        </div>
+                    </form>
+                    <form class="form" action="{% url 'sign' event.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="justify-content-center">
+                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                            <input type="submit" class="m-2 btn btn-primary float-right" value="Sign Up">
                         </div>
                     </form>
                 </div>

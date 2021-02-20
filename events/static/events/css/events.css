@@ -1,0 +1,13 @@
+/* To add left border when card columns side by side */
+
+@media (min-width: 768px){
+    .card-body .row > :last-child{
+        border-left: 1px solid black;
+    }
+}
+/* To add bottom border when card columns stack on mobile */
+@media (max-width: 767px){
+    .card-body .row > :first-child{
+        border-bottom: 1px solid black;
+    }
+}
