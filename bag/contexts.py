@@ -16,12 +16,12 @@ def get_discount(request):
         user_membership = Membership.objects.get(user=user)
         current_date = datetime.now().date()
         if current_date < user_membership.expiry:
-            # 20% for premium members
+            # 10% for premium members
             if user_membership.is_premium:
-                discount = 0.8
-            # 10% for members
-            else:
                 discount = 0.9
+            # 5% for members
+            else:
+                discount = 0.95
     except (Membership.DoesNotExist, TypeError) as e:
         discount = 1.0
 

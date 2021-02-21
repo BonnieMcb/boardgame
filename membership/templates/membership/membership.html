@@ -21,10 +21,20 @@
 <div class="container">
     <div class="row justify-content-center mb-5">
         <div class="col-lg-10">
-            <p>Hi, {{ user }}!</p>
-            <p>You are currently a Member.</p>
-            {% if expiry %}
-            <p>Your membership expires on {{ expiry }}.</p>
+
+            {% if expiry %} <!-- This text is shown if user is a member -->
+                <p>Hi, {{ user }}!</p>
+                {% if is_premium %}
+                    <p>You are currently a Premium Member.</p>
+                {% else %}
+                    <p>You are currently a member.</p>
+                {% endif %}
+                <p>Your membership expires on {{ expiry }}.</p>
+            
+                {% else %} <!-- This text is shown if user is NOT a member -->
+                <p>Explore our various levels of membership below. 
+                    Only members get permanent discounts and access to exclusive events.</p>
+                <p>Try it for 1 month, 6 months or a year.</p>
             {% endif %}
         </div>
         <hr class="w-50">
@@ -42,7 +52,9 @@
             <div class="card bg-warning">
                 <div class="card-header member-header">Member</div>
                 <div class="card-body">
-                    <p>10% Shop Discount</p>
+                    <p>5% Shop Discount</p>
+                    <hr>
+                    <p>Play for free at our café Monday - Friday</p>
                     <hr>
                     <p>Member-only Events</p>
                     <hr>
@@ -69,9 +81,11 @@
             <div class="card bg-success">
                 <div class="card-header member-header">Premium Member</div>
                 <div class="card-body">
-                    <p>20% Shop Discount</p>
+                    <p>10% Shop Discount</p>
                     <hr>
-                    <p>Premium Member-only Events</p>
+                    <p>Play for free at our café every day</p>
+                    <hr>
+                    <p>Member-only Events</p>
                     <hr>
                     <p>Exclusive Offers</p>
                     <hr>

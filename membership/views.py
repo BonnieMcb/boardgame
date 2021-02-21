@@ -13,7 +13,9 @@ def membership(request):
     try:
         user_membership = Membership.objects.get(user=request.user)
         context["expiry"] = user_membership.expiry
+        context["is_premium"] = user_membership.is_premium
     except (Membership.DoesNotExist, TypeError) as e:
         context["expiry"] = None
+        context["is_premium"] = None
 
     return render(request, 'membership/membership.html', context)
