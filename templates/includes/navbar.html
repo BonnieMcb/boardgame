@@ -1,57 +1,44 @@
-<nav class="navbar navbar-expand-lg flex-column flex-md-row navbar-dark bg-dark">
-    <a class="navbar-brand" href="{% url 'home' %}">The Hexagon</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse d-lg-flex justify-content-end" id="navbarSupportedContent">
-        <ul class="navbar-nav d-flex justify-content-end">
-            <li class="nav-item mx-4">
-                <a class="nav-link" href="{% url 'games' %}">games</a>
-            </li>
-            <li class="nav-item mx-4">
-                <a class="nav-link" href="{% url 'membership' %}">membership</a>
-            </li>
-            <li class="nav-item mx-4">
-                <a class="nav-link" href="{% url 'events' %}">events</a>
-            </li>
-        </ul>
-    </div>
-    <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
-        <ul class="list-inline list-unstyled text-center text-lg-right my-0">
-            <li class="list-inline-item dropdown">
-                <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <div class="text-center">
-                        <div><i class="fas fa-user fa-lg"></i></div>
-                        <p class="my-0">My Account</p>
-                    </div>
-                </a>
-                <div class="dropdown-menu border-0" aria-labelledby="user-options">
-                    {% if request.user.is_authenticated %}
-                        {% if request.user.is_superuser %}
-                            <a href="" class="dropdown-item">Product Management</a>
-                        {% endif %}
-                        <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
-                        <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
-                    {% else %}
-                        <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
-                        <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
-                    {% endif %}
-                </div>
-            </li>
-            <li class="list-inline-item">
-                <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="{% url 'view_bag' %}">
-                    <div class="text-center">
-                        <div><i class="fas fa-shopping-bag fa-lg"></i></div>
-                        <p class="my-0">
-                            {% if grand_total %}
-                                ${{ grand_total|floatformat:2 }}
-                            {% else %}
-                                $0.00
-                            {% endif %}
-                        </p>
-                    </div>
-                </a>
-            </li>
-        </ul>
+<nav class="navbar navbar-light navbar-expand-lg flex-column flex-md-row bg-warning py-3">
+    <div class="row w-100 mx-0">
+        <a class="col-lg-3 col navbar-brand m-0" href="{% url 'home' %}">The Hexagon</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="col-lg-9 collapse navbar-collapse d-lg-flex justify-content-center" id="navbarSupportedContent">
+            <div class="col-lg-8">
+                <ul class="navbar-nav d-flex justify-content-center">
+                    <li class="nav-item mx-lg-4 mx-0">
+                        <a class="nav-link" href="{% url 'games' %}">games</a>
+                    </li>
+                    <li class="nav-item mx-lg-4 mx-0">
+                        <a class="nav-link" href="{% url 'membership' %}">membership</a>
+                    </li>
+                    <li class="nav-item mx-lg-4 mx-0">
+                        <a class="nav-link" href="{% url 'events' %}">events</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-4">
+                <ul class="navbar-nav d-flex justify-content-end">
+                    <li class="nav-item">
+                        <a class="text-dark nav-link" href="{% url 'profile' %}">
+                            <div class="">
+                                <i class="fas fa-user mr-1"></i>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="text-dark nav-link" href="{% url 'view_bag' %}">
+                            <div class="">
+                                <i class="fas fa-shopping-bag mr-1"></i>
+                                {% if product_count > 0 %}
+                                    <span class="font-weight-bold">{{ product_count }}</span>
+                                {% endif %}
+                            </div>
+                        </a>
+                    </li>
+                </ul>     
+            </div>
+        </div>
     </div>
 </nav>

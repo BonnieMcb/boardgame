@@ -11,7 +11,7 @@
 {% block page_header %}
 <div class="container header-container mt-5">
     <div class="row">
-        <div class="col text-center mb-4">
+        <div class="col text-center mb-4 text-white">
             <h2 class="logo-font">Games</h2>
             <hr class="w-50">
         </div>
@@ -29,8 +29,8 @@
             <div class="col-sm-9">
                 <div class="row mb-3">
                     <div class="col-lg-2 col-4 mb-3 mb-lg-0 d-flex justify-content-center">
-                        <div class="dropdown">
-                            <button class="btn btn-sm btn-dark dropdown-toggle" type="button" id="category-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="dropdown d-flex align-items-center">
+                            <button class="btn btn-sm btn-light dropdown-toggle" type="button" id="category-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Category
                             </button>
                             <div class="dropdown-menu dropdown-fixed-h" aria-labelledby="category-dropdown">
@@ -45,8 +45,8 @@
                         </div>
                     </div>
                     <div class="col-lg-2 col-4 mb-3 mb-lg-0 d-flex justify-content-center">
-                        <div class="dropdown">
-                            <button class="btn btn-sm btn-dark dropdown-toggle" type="button" id="mechanic-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="dropdown d-flex align-items-center">
+                            <button class="btn btn-sm btn-light dropdown-toggle" type="button" id="mechanic-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Mechanic
                             </button>
                             <div class="dropdown-menu dropdown-fixed-h" aria-labelledby="mechanic-dropdown">
@@ -61,8 +61,8 @@
                         </div>
                     </div>
                     <div class="col-lg-2 col-4 mb-3 mb-lg-0 d-flex justify-content-center">
-                        <div class="dropdown">
-                            <button class="btn btn-sm btn-dark dropdown-toggle" type="button" id="sort-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="dropdown d-flex align-items-center">
+                            <button class="btn btn-sm btn-light dropdown-toggle" type="button" id="sort-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Sort By
                             </button>
                             <div class="dropdown-menu" aria-labelledby="sort-dropdown">
@@ -105,8 +105,8 @@
                 <div class="row">
                 {% for product in page_obj %}
                 {% if product.is_visible %}
-                    <div class="card col-xl-2 col-lg-4 my-3 border-0">
-                        <div class="card-body game-img-container bg-white">
+                    <div class="card col-xl-2 col-lg-4 my-3 border-0 bg-transparent">
+                        <div class="card-body game-img-container">
                             <a href="{% url 'game_detail' product.id %}"> <!-- Image that links to game detail page -->
                                 <img class="card-img-top" src="{{ product.image_url }}" alt="{{ product.names }}">
                             </a>
@@ -116,9 +116,9 @@
                                 <p class="text-truncate game-title">{{ product.names }}</p>
                             </a>
                             {% if product.discounted_price %}
-                            <p class="lead mb-1 text-right font-weight-bold">€{{ product.discounted_price }}<span class="ml-2 text-muted font-weight-normal"><del>€{{ product.price }}</del></span></p>
+                            <p class="lead mb-1 text-right text-white font-weight-bold">€{{ product.discounted_price }}<span class="ml-2 text-muted font-weight-normal"><del>€{{ product.price }}</del></span></p>
                             {% else %}
-                            <p class="lead mb-1 text-right font-weight-bold">€{{ product.price }}</p>
+                            <p class="lead mb-1 text-right text-white font-weight-bold">€{{ product.price }}</p>
                             {% endif %}
                             <form class="form float-right" action="{% url 'add_to_bag' product.id %}" method="POST">
                                 {% csrf_token %}
