@@ -1,21 +1,18 @@
 from django.shortcuts import render
 
 from .models import Membership
+from membership.contexts import get_membership
 
 # Create your views here.
 
 
 def membership(request):
 
-    context = dict()
-    context["user"] = request.user
+    membership = get_membership(request)
 
-    try:
-        user_membership = Membership.objects.get(user=request.user)
-        context["expiry"] = user_membership.expiry
-        context["is_premium"] = user_membership.is_premium
-    except (Membership.DoesNotExist, TypeError) as e:
-        context["expiry"] = None
-        context["is_premium"] = None
+    context = {
+        'user': request.user,
+        'membership': membership
+    }
 
     return render(request, 'membership/membership.html', context)

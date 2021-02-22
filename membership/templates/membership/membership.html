@@ -21,15 +21,14 @@
 <div class="container">
     <div class="row justify-content-center mb-5">
         <div class="col-lg-10">
-
-            {% if expiry %} <!-- This text is shown if user is a member -->
+            {% if membership %} <!-- This text is shown if user is a member -->
                 <p>Hi, {{ user }}!</p>
-                {% if is_premium %}
+                {% if membership.is_premium %}
                     <p>You are currently a Premium Member.</p>
                 {% else %}
                     <p>You are currently a member.</p>
                 {% endif %}
-                <p>Your membership expires on {{ expiry }}.</p>
+                <p>Your membership expires on {{ membership.expiry }}.</p>
             
                 {% else %} <!-- This text is shown if user is NOT a member -->
                 <p>Explore our various levels of membership below. 

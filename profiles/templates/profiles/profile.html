@@ -5,26 +5,134 @@
     <link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}">
 {% endblock %}
 
-{% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
+{{% block page_header %}
+<div class="container header-container mt-5">
+    <div class="row">
+        <div class="col text-center mb-4 text-white">
+            <h2 class="logo-font">my profile</h2>
+            <hr class="w-50">
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block content %}
-<div class="overlay">
-    <div class="container mb-2">
-        <div class="row">
-            <div class="col">
-                <hr>
-                <h2 class="mb-4 logo-font">My Profile</h2>
-                <hr>
+
+<div class="container">
+    {% if membership %}
+    <!-- membership details -->
+    <div class="row d-flex justify-content-center mb-5">
+        <div class="col col-lg-6">
+            <div class="row text-white">
+                <div class="col text-center">
+                    <p>Hi, {{ user }}!</p>
+                    {% if membership.is_premium %}
+                        <p>You are currently a Premium Member.</p>
+                    {% else %}
+                        <p>You are currently a member.</p>
+                    {% endif %}
+                    <p>Your membership expires on {{ membership.expiry }}.</p>
+                    <form method="post" action="{% url 'account_logout' %}">
+                        {% csrf_token %}
+                        {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                        {% endif %}
+                    <button class="btn btn-primary" type="submit">Logout</button>
+                    </form>
+                </div>
             </div>
         </div>
-        {{ profile }}
     </div>
+    <div class="row d-flex justify-content-center mb-5">
+        <div class="col col-lg-6">
+            <div class="row">
+                <div class="col text-center mb-4 text-white">
+                    <h3 class="logo-font">order history</h3>
+                    <hr class="w-50">
+                </div>
+            </div>
+            <div class="row text-white justify-content-center">
+                {% if orders %}
+                    <div class="row w-75">
+                        <div class="col font-weight-bold text-left">Order Date</div>
+                        <div class="col font-weight-bold text-right">Total Cost</div>
+                    </div>
+                    {% for order in orders %}
+                    <div class="row w-75">
+                        <div class="col text-left">{{ order.date }}</div>
+                        <div class="col text-right">€{{ order.grand_total }}</div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                You have no previous orders.
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col col-lg-6">
+            <div class="row">
+                <div class="col text-center mb-4 text-white">
+                    <h3 class="logo-font">event signups</h3>
+                    <hr class="w-50">
+                </div>
+            </div>
+            <div class="row text-white justify-content-center">
+                {% if events %}
+                    <div class="row w-75">
+                        <div class="col font-weight-bold text-left">Event Name</div>
+                        <div class="col font-weight-bold text-center">Event Date</div>
+                        <div class="col font-weight-bold text-right">Event Signups</div>
+                    </div>
+                    {% for event in events %}
+                    <div class="row w-75">
+                        <div class="col text-left">{{ event.name }}</div>
+                        <div class="col text-center">{{ event.datetime }}</div>
+                        <div class="col text-right">{{ event.sign_count }}</div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                You aren't signed to any events.
+                {% endif %}
+            </div>
+        </div>
+    </div>
+        {% if user and user.is_superuser %}
+        <div class="row d-flex justify-content-center mt-5">
+            <div class="col col-lg-6">
+                <div class="row">
+                    <div class="col text-center mb-4 text-danger">
+                        <h3 class="logo-font">Admin</h3>
+                        <hr class="w-50">
+                    </div>
+                </div>
+                <div class="row text-white justify-content-center">
+                    <a href="/admin" class="btn btn-danger">Admin Panel</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% else %}
+    <!-- login / register -->
+    <div class="row d-flex justify-content-center">
+        <div class="col col-lg-6">
+            <div class="row">
+                <div class="col text-center">
+                    <div class="text-white mb-3">
+                        Already have an account?
+                    </div>
+                    <a href="{% url 'account_login' %}" class="btn btn-primary">Login</a>
+                </div>
+                <div class="col text-center">
+                    <div class="text-white mb-3">
+                        Need to sign up?
+                    </div>
+                    <a href="{% url 'account_signup' %}" class="btn btn-primary">Register</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
         
 {% endblock %}
