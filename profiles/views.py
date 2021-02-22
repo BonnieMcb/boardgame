@@ -6,8 +6,13 @@ from .models import UserProfile
 
 
 def profile(request):
+
     # To display the user's profile.
-    profile = get_object_or_404(UserProfile, user=request.user)
+    profile = None
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except (UserProfile.DoesNotExist, TypeError) as e:
+        print("User not found:", e)
 
     template = 'profiles/profile.html'
     context = {
