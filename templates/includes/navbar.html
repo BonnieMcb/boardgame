@@ -7,13 +7,13 @@
         <div class="col-lg-9 collapse navbar-collapse d-lg-flex justify-content-center" id="navbarSupportedContent">
             <div class="col-lg-8">
                 <ul class="navbar-nav d-flex justify-content-center">
-                    <li class="nav-item mx-lg-4 mx-0">
+                    <li class="nav-item mx-lg-4 mx-0 font-weight-bold">
                         <a class="nav-link" href="{% url 'games' %}">shop</a>
                     </li>
-                    <li class="nav-item mx-lg-4 mx-0">
+                    <li class="nav-item mx-lg-4 mx-0 font-weight-bold">
                         <a class="nav-link" href="{% url 'membership' %}">membership</a>
                     </li>
-                    <li class="nav-item mx-lg-4 mx-0">
+                    <li class="nav-item mx-lg-4 mx-0 font-weight-bold">
                         <a class="nav-link" href="{% url 'events' %}">events</a>
                     </li>
                 </ul>
@@ -23,6 +23,7 @@
                     <li class="nav-item">
                         <a class="text-dark nav-link" href="{% url 'profile' %}">
                             <div class="">
+                                <span class="mr-2">Hello, <strong>{{ request.user }}</strong></span>
                                 <i class="fas fa-user mr-1"></i>
                             </div>
                         </a>
