@@ -81,15 +81,12 @@
                 {% if events %}
                     <div class="row w-75">
                         <div class="col font-weight-bold text-left">Event Name</div>
-                        <div class="col font-weight-bold text-center">Event Date</div>
-                        <div class="col font-weight-bold text-right">Event Signups</div>
+                        <div class="col font-weight-bold text-right">Event Date</div>
                     </div>
                     {% for event in events %}
                     <div class="row w-75">
                         <div class="col text-left">{{ event.name }}</div>
-                        <div class="col text-center">{{ event.datetime }}</div>
-                        <div class="col text-right">{{ event.sign_count }}</div>
-                    </div>
+                        <div class="col text-right">{{ event.datetime }}</div>
                     {% endfor %}
                 {% else %}
                 You aren't signed to any events.
