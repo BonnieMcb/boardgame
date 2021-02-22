@@ -11,7 +11,7 @@
 {% block page_header %}
 <div class="container header-container mt-5">
     <div class="row">
-        <div class="col text-center mb-4 text-white">
+        <div class="col text-center mb-4">
             <h2 class="logo-font">Games</h2>
             <hr class="w-50">
         </div>
@@ -36,7 +36,7 @@
                             <div class="dropdown-menu dropdown-fixed-h" aria-labelledby="category-dropdown">
                                 {% for category in categories %}
                                     {% if current_filter_cat and current_filter_cat == category.friendly_name %}
-                                    <a href="?category={{ category.name }}" class="dropdown-item selected bg-primary text-white">{{ category.friendly_name}}</a>
+                                    <a href="?category={{ category.name }}" class="dropdown-item selected bg-primary text-light">{{ category.friendly_name}}</a>
                                     {% else %}
                                     <a href="?category={{ category.name }}" class="dropdown-item">{{ category.friendly_name}}</a>
                                     {% endif %}
@@ -52,7 +52,7 @@
                             <div class="dropdown-menu dropdown-fixed-h" aria-labelledby="mechanic-dropdown">
                                 {% for mechanic in mechanics %}
                                     {% if current_filter_mech and current_filter_mech == mechanic.friendly_name %}
-                                    <a href="?mechanic={{ mechanic.name }}" class="dropdown-item selected bg-primary text-white">{{ mechanic.friendly_name}}</a>
+                                    <a href="?mechanic={{ mechanic.name }}" class="dropdown-item selected bg-primary text-light">{{ mechanic.friendly_name}}</a>
                                     {% else %}
                                     <a href="?mechanic={{ mechanic.name }}" class="dropdown-item">{{ mechanic.friendly_name}}</a>
                                     {% endif %}
@@ -116,9 +116,9 @@
                                 <p class="text-truncate game-title">{{ product.names }}</p>
                             </a>
                             {% if product.discounted_price %}
-                            <p class="lead mb-1 text-right text-white font-weight-bold">€{{ product.discounted_price }}<span class="ml-2 text-muted font-weight-normal"><del>€{{ product.price }}</del></span></p>
+                            <p class="lead mb-1 text-right text-light font-weight-bold">€{{ product.discounted_price }}<span class="ml-2 text-muted font-weight-normal"><del>€{{ product.price }}</del></span></p>
                             {% else %}
-                            <p class="lead mb-1 text-right text-white font-weight-bold">€{{ product.price }}</p>
+                            <p class="lead mb-1 text-right text-light font-weight-bold">€{{ product.price }}</p>
                             {% endif %}
                             <form class="form float-right" action="{% url 'add_to_bag' product.id %}" method="POST">
                                 {% csrf_token %}

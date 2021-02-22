@@ -18,6 +18,7 @@ body {
 .logo-font {
     text-transform: lowercase;
     font-family: 'Poppins';
+    color: #f8f9fa;
 }
 
 #game-title {

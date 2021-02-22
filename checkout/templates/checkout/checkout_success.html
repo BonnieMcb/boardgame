@@ -19,15 +19,14 @@
         <div class="row">
             <div class="col">
                 <hr>
-                <h2 class="mb-4">Thank you!</h2>
+                <h2 class="mb-4 logo-font">Thank you!</h2>
                 <hr>
-                <p>Your order information is below. A confirmation email will be sent to {{ order.email }}</p>
+                <p class="text-light">Your order information is below. A confirmation email will be sent to {{ order.email }}</p>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row text-light">
             <div class="col-12 col-lg-7">
-
                 <div class="order-confirmation-wrapper p-2 border">
                     <div class="row">
                         <div class="col">
@@ -186,9 +185,9 @@
             <div class="col-12 col-lg-7 text-right">
                 <a href="{% url 'home' %}" class="btn btn-black rounded-0 my-2">
                     <span class="icon mr-2">
-                        <i class="fas fa-coffee"></i>
+                        <i class="fas fa-coffee text-warning"></i>
                     </span>
-                    <span class="text-uppercase">Did you know that members get a discount on games and play at our café for free?</span>
+                    <span class="text-warning">Did you know that members get a discount on games and play at our café for free?</span>
                 </a>
             </div>
         </div>
