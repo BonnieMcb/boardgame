@@ -125,7 +125,7 @@
                                 <div class="form-row">
                                     <input type="hidden" name="quantity" value="1">
                                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                                    <input type="submit" class="btn btn-primary" value="Add to Bag">
+                                    <input type="submit" class="btn btn-primary mt-3" value="Add to Bag">
                                 </div>
                             </form>
                         </div>
@@ -133,7 +133,7 @@
                 {% endif %}
                 {% endfor %}
                 </div>
-                <div class="row justify-content-center bg-light p-2">
+                <div class="row justify-content-center bg-light p-2 my-4">
                 <!-- with help from https://samulinatri.com/blog/django-pagination-tutorial/ -->        
                 {% if page_obj.paginator.num_pages > 1 %}
                     {% if page_obj.has_previous %}

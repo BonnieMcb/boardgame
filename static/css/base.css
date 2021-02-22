@@ -24,8 +24,8 @@ body {
     font-weight: 500;
 }
 
-.description-icon {
-    
+input[type=number] {
+    border: 0;
 }
 
 .card-footer {
