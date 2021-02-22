@@ -9,14 +9,10 @@
     
 
 {% block page_header %}
-
-<nav class="navbar navbar-expand-lg flex-column flex-md-row navbar-dark bg-dark">
-    {% include 'includes/shop-nav.html' %} 
-</nav>
 <div class="container header-container mt-5">
     <div class="row">
         <div class="col text-center mb-4">
-            <h2 class="logo-font">Products</h2>
+            <h2 class="logo-font">Games</h2>
             <hr class="w-50">
         </div>
     </div>
@@ -28,56 +24,88 @@
 {% block content %}
     <div class="overlay"></div>
     <div class="container-fluid">
-        <div class="row">   
-            <!-- --------------- Sidebar Filters --------------- -->    
-            <div class="col-sm-3" id="accordion">
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Category</button>
-                        </h5>
-                    </div>
-                    <div id="collapseOne" class="collapse overflow-auto" aria-labelledby="headingOne" data-parent="#accordion">
-                        {% for category in categories %}
-                        <div class="card-body py-2">
-                            <a href="{% url 'games' %}?category={{ category.name }}">{{ category.friendly_name}}</a>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingTwo">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Mechanic</button>
-                        </h5>
-                    </div>
-                    <div id="collapseTwo" class="collapse overflow-auto" aria-labelledby="headingTwo" data-parent="#accordion">
-                        {% for mechanic in mechanics %}
-                        <div class="card-body py-2">
-                            <a href="{% url 'games' %}?mechanic={{ mechanic.name }}">{{ mechanic.friendly_name}}</a>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>      
+        <div class="row justify-content-center">   
             <!-- --------------- Game card rows and columns --------------- -->    
             <div class="col-sm-9">
-                <div class="row justify-content-end"> 
-                    <ul class="navbar-nav w-auto">
-                        <li class="nav-item dropleft">
-                            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#" id="all-products-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort by</a>
-                            <div class="dropdown-menu border border-dark" aria-labelledby="all-products-link">
-                                <a href="{% url 'games' %}?{{ get_params }}sort=price&direction=asc" class="dropdown-item">Price</a>
-                                <a href="{% url 'games' %}?{{ get_params }}sort=rank&direction=desc" class="dropdown-item ">Rank</a>
-                                <a href="{% url 'games' %}?{{ get_params }}sort=weight&direction=asc" class="dropdown-item ">Weight</a>
+                <div class="row mb-3">
+                    <div class="col-lg-2 col-4 mb-3 mb-lg-0 d-flex justify-content-center">
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-dark dropdown-toggle" type="button" id="category-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Category
+                            </button>
+                            <div class="dropdown-menu dropdown-fixed-h" aria-labelledby="category-dropdown">
+                                {% for category in categories %}
+                                    {% if current_filter_cat and current_filter_cat == category.friendly_name %}
+                                    <a href="?category={{ category.name }}" class="dropdown-item selected bg-primary text-white">{{ category.friendly_name}}</a>
+                                    {% else %}
+                                    <a href="?category={{ category.name }}" class="dropdown-item">{{ category.friendly_name}}</a>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-4 mb-3 mb-lg-0 d-flex justify-content-center">
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-dark dropdown-toggle" type="button" id="mechanic-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Mechanic
+                            </button>
+                            <div class="dropdown-menu dropdown-fixed-h" aria-labelledby="mechanic-dropdown">
+                                {% for mechanic in mechanics %}
+                                    {% if current_filter_mech and current_filter_mech == mechanic.friendly_name %}
+                                    <a href="?mechanic={{ mechanic.name }}" class="dropdown-item selected bg-primary text-white">{{ mechanic.friendly_name}}</a>
+                                    {% else %}
+                                    <a href="?mechanic={{ mechanic.name }}" class="dropdown-item">{{ mechanic.friendly_name}}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-4 mb-3 mb-lg-0 d-flex justify-content-center">
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-dark dropdown-toggle" type="button" id="sort-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Sort By
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="sort-dropdown">
+                                <a href="?{{ get_params.no_sort }}sort=price&direction=asc" class="dropdown-item">Lowest Price</a>
+                                <a href="?{{ get_params.no_sort }}sort=price&direction=desc" class="dropdown-item">Highest Price</a>
+                                <a href="?{{ get_params.no_sort }}sort=rank&direction=desc" class="dropdown-item ">Rank</a>
+                                <a href="?{{ get_params.no_sort }}sort=weight&direction=asc" class="dropdown-item ">Weight</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 pr-0">
+                        <form method="GET" action="{% url 'games' %}">
+                            <div class="input-group w-100 border border-dark">
+                                <input class="form-control rounded-0 bg-light" type="text" name="q" placeholder="Search">
+                                <div class="input-group-append">
+                                    <button class="form-control btn btn-primary rounded-0" type="submit">
+                                        <span class="icon">
+                                            <i class="fas fa-search"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row justify-content-end">
+                    {% if current_filter_cat %}
+                        <a href="?{{ get_params.no_cat }}" class="text-danger ml-2">{{ current_filter_cat }}<i class="ml-1 fas fa-times-circle"></i></a>
+                    {% endif %}
+                    {% if current_filter_mech %}
+                        <a href="?{{ get_params.no_mech }}" class="text-danger ml-2">{{ current_filter_mech }}<i class="ml-1 fas fa-times-circle"></i></a>
+                    {% endif %}
+                    {% if current_query %}
+                        <a href="?{{ get_params.no_q }}" class="text-danger ml-2">"{{ current_query }}"<i class="ml-1 fas fa-times-circle"></i></a>
+                    {% endif %}
+                    {% if current_sorting %}
+                        <a href="?{{ get_params.no_sort }}" class="text-danger ml-2">{{ current_sorting }}<i class="ml-1 fas fa-times-circle"></i></a>
+                    {% endif %}
                 </div>
                 <div class="row">
                 {% for product in page_obj %}
                 {% if product.is_visible %}
-                    <div class="card col-xl-3 col-md-4 my-3 border-0">
+                    <div class="card col-xl-2 col-lg-4 my-3 border-0">
                         <div class="card-body game-img-container bg-white">
                             <a href="{% url 'game_detail' product.id %}"> <!-- Image that links to game detail page -->
                                 <img class="card-img-top" src="{{ product.image_url }}" alt="{{ product.names }}">
@@ -105,28 +133,25 @@
                 {% endif %}
                 {% endfor %}
                 </div>
+                <div class="row justify-content-center bg-light p-2">
+                <!-- with help from https://samulinatri.com/blog/django-pagination-tutorial/ -->        
+                {% if page_obj.paginator.num_pages > 1 %}
+                    {% if page_obj.has_previous %}
+                        <a href="?{{ get_params.no_page }}page={{ page_obj.previous_page_number }}" class="mr-2">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                    {% endif %}
+                    <span>{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                    {% if page_obj.has_next %}
+                        <a href="?{{ get_params.no_page }}page={{ page_obj.next_page_number }}" class="ml-2">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    {% endif %}
+                {% endif %}
+                </div>
             </div>
         </div>
     </div>
-<!-- TODO get bootstrap involved -->
-<!-- with help from https://samulinatri.com/blog/django-pagination-tutorial/ -->        
-    {% if page_obj.paginator.num_pages > 1 %}
-
-        {% if page_obj.has_previous %}
-
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-
-        {% endif %}
-
-        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
-
-        {% if page_obj.has_next %}
-
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-
-        {% endif %}
-
-    {% endif %}
 
 {% endblock %}
 

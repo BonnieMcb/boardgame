@@ -33,10 +33,8 @@
     font-size: 18px;
 }
 
-#accordion .collapse {
-    max-height: 300px;
+.dropdown-fixed-h {
+    max-height: 250px;
+    overflow: auto;
 }
 
-#accordion .collapsing {
-    max-height: 300px;
-}

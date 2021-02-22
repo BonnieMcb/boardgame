@@ -48,7 +48,7 @@
                                         <p class="my-0"><strong>{{ item.product.names }}</strong></p>
                                     </td>
                                     <td class="py-3 align-middle text-right">
-                                        {% if item.product.discounted_price %}
+                                        {% if item.product.discounted_price != item.product.price %}
                                         <p class="my-0">€{{ item.product.discounted_price }}<span class="ml-2 text-muted font-weight-normal"><del>€{{ item.product.price }}</del></span></p>
                                         {% else %}
                                         <p class="my-0">€{{ item.product.price }}</p>

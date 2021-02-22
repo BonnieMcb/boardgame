@@ -1,17 +1,6 @@
-<div class="collapse navbar-collapse" id="main-nav">
-    <ul class="navbar-nav w-auto mx-auto">
-        <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#" id="all-products-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Special Offers
-            </a>
-            <!--   ---potential dropdown for special offers 
-            <div class="dropdown-menu border-0" aria-labelledby="all-products-link">
-                <a href="" class="dropdown-item">""</a>
-            </div> -->
-        </li>
-    </ul>
+<div class="collapse navbar-collapse justify-content-center" id="main-nav">
     <!-- search box -->
-    <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
+    <div class="col-lg-4 py-1 py-lg-0">
         <form method="GET" action="{% url 'games' %}">
             <div class="input-group w-100">
                 <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search">
