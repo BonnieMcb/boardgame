@@ -4,164 +4,200 @@
     <link rel="stylesheet" href="{% static 'css/games.css' %}">
 {% endblock %}
 
-
 <body>
-    
 
 {% block page_header %}
-
-<nav class="navbar navbar-expand-lg flex-column flex-md-row navbar-dark bg-dark">
-    {% include 'includes/shop-nav.html' %} 
-</nav>
-    <!-- <div class="container header-container">
-        <div class="row">
+<div class="container header-container mt-5">
+    <div class="row">
+        <div class="col text-center mb-4 text-white">
+            <h2 class="logo-font">{{ product.names }}</h2>
+            <hr class="w-50">
         </div>
-    </div> -->
-{% endblock %}
-
-                
+    </div>
+</div>
+{% endblock %} 
 
 {% block content %}
-
-
-    <div class="overlay"></div>
-    <div class="container-fluid">
-        <div class="row float-right"> 
+<div class="container col-md-8">
+    <div class="row d-flex justify-content-center">
+        <div class="col col-lg-7">
+            <a href="{% url 'games' %}" class="btn btn-outline-black rounded-0 mb-4 text-white">
+                <span class="icon">
+                    <i class="fas fa-chevron-left"></i>
+                </span>
+                <span>Keep Shopping</span>
+            </a>
         </div>
-
-        
-        <div class="row">
-            <div class="col text-center mt-3">
-                <h2 class="logo-font">{{ product.names }}</h2>
-                <hr class="w-50 mb-1">
-            </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-3">
+            <a href=" {{product.image_url}} " target="_blank">
+                <img class="card-img-top img-fluid" src="{{ product.image_url }}" alt="{{ product.names }}">
+            </a>
         </div>
-    <!-- --------------- Sidebar Filters --------------- -->    
-    <div class="row">   
-        <div class="col-md-3" id="accordion">
-            <div class="card">
-                <div class="card-header" id="headingOne">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Category
-                        </button>
-                    </h5>
-                </div>
-
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                    {% for category in categories %}
-                    <div class="card-body">
-                        <a href="">{{ category.friendly_name}}</a>
-                    </div>
-                    {% endfor %}
-
+        <div class="col-lg-4">
+            <div class="row text-white text-right mt-3 mt-lg-0">
+                <div class="col">
+                {% if product.discounted_price %}
+                    <h2 class="font-weight-bold">€{{ product.discounted_price }}<span class="ml-2 text-muted font-weight-normal"><del>€{{ product.price }}</del></span></h2>
+                    {% else %}
+                    <h2 class="font-weight-bold">€{{ product.price }}</h2>
+                    {% endif %}
                 </div>
             </div>
-            <div class="card">
-                <div class="card-header" id="headingTwo">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Mechanic
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                    {% for mechanic in mechanics %}
-                    <div class="card-body">
-                        <a href="">{{ mechanic.friendly_name}}</a>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>      
-        <div class="container col-md-8">
-            <div class="row">
-                <a href="{% url 'games' %}" class="btn btn-outline-black rounded-0 mb-4">
-                    <span class="icon">
-                        <i class="fas fa-chevron-left"></i>
-                    </span>
-                    <span class="text-uppercase">Keep Shopping</span>
-                </a>
-            </div>
-            <div class="row">
-                <div class="col-lg-5">
-                    <a href=" {{product.image_url}} " target="_blank">
-                        <img class="card-img-top img-fluid" src="{{ product.image_url }}" alt="{{ product.names }}">
-                    </a>
-                </div>
-                <div class="col-lg-7">
-                    <div class="row">
-                        {% if product.discounted_price %}
-                        <div class="col-sm-6 font-weight-bold">€{{ product.discounted_price }}<span class="ml-2 text-muted font-weight-normal"><del>€{{ product.price }}</del></span></div>
-                        {% else %}
-                        <div class="col-sm-6 font-weight-bold">€{{ product.price }}</div>
-                        {% endif %}
-                        <form class="form" action="{% url 'add_to_bag' product.id %}" method="POST">
-                            {% csrf_token %}
-                            <div class="form-row">
-                                <div class="col-12">
-                                    <p class="mt-3"><strong>Quantity:</strong></p>
-                                    <div class="form-group w-50">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <button class="decrement-qty btn btn-black rounded-0" 
-                                                    data-item_id="{{ product.id }}" id="decrement-qty_{{ product.id }}">
-                                                    <span class="icon">
-                                                        <i class="fas fa-minus"></i>
-                                                    </span>
-                                                </button>
-                                            </div>
-                                            <input class="form-control qty_input" type="number" 
-                                            name="quantity" value="1" min="1" max="99" data-item_id="{{ product.id }}" 
-                                            id="id_qty_{{ product.id }}">
-                                            <div class="input-group-append">
-                                                <button class="increment-qty btn btn-black rounded-0"
-                                                    data-item_id="{{ product.id }}" id="increment-qty_{{ product.id }}">
-                                                    <span class="icon">
-                                                        <i class="fas fa-plus"></i>
-                                                    </span>
-                                                </button>
-                                            </div>
+            <div class="row d-flex justify-content-end">
+                <div class="col">
+                    <form class="form" action="{% url 'add_to_bag' product.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="col-12">
+                                <div class="form-group text-white float-right">
+                                    <div class="input-group align-items-center">
+                                        <span><strong>Quantity:</strong></span>
+                                        <div class="input-group-prepend">
+                                            <button class="decrement-qty btn text-white rounded-0" 
+                                                data-item_id="{{ product.id }}" id="decrement-qty_{{ product.id }}">
+                                                <span class="icon">
+                                                    <i class="fas fa-minus"></i>
+                                                </span>
+                                            </button>
+                                        </div>
+                                        <input class="form-control qty_input text-center" type="number" 
+                                        name="quantity" value="1" min="1" max="99" data-item_id="{{ product.id }}" 
+                                        id="id_qty_{{ product.id }}">
+                                        <div class="input-group-append">
+                                            <button class="increment-qty btn text-white rounded-0"
+                                                data-item_id="{{ product.id }}" id="increment-qty_{{ product.id }}">
+                                                <span class="icon">
+                                                    <i class="fas fa-plus"></i>
+                                                </span>
+                                            </button>
                                         </div>
                                     </div>
+                                    <input type="submit" class="btn btn-primary float-right mt-5 mr-2" value="Add to Bag">
                                 </div>
-                                <div class="col-12">
-                                    <input type="submit" class="btn btn-warning" value="Add to Bag">
-                                </div>
-                                <input type="hidden" name="redirect_url" value="{{ request.path }}">
                             </div>
-                        </form>
-                    </div>
+                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <div class="row"><i class="fas fa-child description-icon mr-2"></i> Recommended Age: {{ product.age }}+</div>
-                    <div class="row"><i class="fas fa-user-friends mr-2"></i> Min. Players: {{ product.min_players }}</div>
-                    <div class="row"><i class="fas fa-users mr-2"></i> Max. Players: {{ product.max_players }}</div>
-                    <div class="row"><i class="fas fa-clock mr-2"></i> Average Time: {{ product.avg_time }}</div>
-                    <div class="row overflow-hidden "><i class="fas fa-info mr-2"></i>Detailed description at <a href="{{ product.bgg_url }}" target="_blank" class="ml-1 text-decoration-none"> Boardgame Geek</a></div>
-                    <div class="row"><i class="fas fa-trophy mr-2"></i> Rank on BGG: {{ product.rank }}</div>
-                    <div class="row"><i class="fas fa-brain mr-2"></i> Complexity weight: {{ product.weight }}/5</div>
-                    <div class="row"><i class="far fa-calendar-alt mr-2"></i> Year: {{ product.year }}</div>
-                    <div class="row"><i class="fas fa-pencil-alt mr-2"></i> Designer: {{ product.designer }}</div>
-                    <div class="row">
-                    {% for category in product.categories %}
-                        <p>
-                            <a href="{% url 'games' %}?category={{ category.name }}">{{ category.friendly_name }}</a>
-                        </p>
-                    {% endfor %}
-
-                        {% for mechanic in product.mechanics %}
-                        <p>
-                            <a href="{% url 'games' %}?mechanic={{ mechanic.name }}">{{ mechanic.friendly_name }}</a>
-                        </p>
-                    {% endfor %}
-                    </div>
-                </div>
-            </div>
+        </div>
     </div>
-
+    <hr class="w-50 my-4">
+    <div class="row d-flex justify-content-center">
+        <div class="col col-lg-5 text-white text-left">
+            <div class="row">
+                <div class="col text-center mb-4 text-white">
+                    <h5 class="logo-font">game information</h5>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-1 text-center">
+                    <i class="fas fa-child description-icon"></i>
+                </div>
+                <div class="col-8">
+                    <span>Recommended Age:</span>
+                </div>
+                <div class="col-3 text-right">{{ product.age }}+</div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-1 text-center">
+                    <i class="fas fa-user-friends"></i>
+                </div>
+                <div class="col-8">
+                    <span>Min. Players:</span>
+                </div>
+                <div class="col-3 text-right">{{ product.min_players }}</div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-1 text-center">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="col-8">
+                    <span>Max. Players:</span>
+                </div>
+                <div class="col-3 text-right">{{ product.max_players }}</div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-1 text-center">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="col-8">
+                    <span>Average Time:</span>
+                </div>
+                <div class="col-3 text-right">{{ product.avg_time }}m</div>
+            </div>
+            
+            <div class="row d-flex justify-content-center">
+                <div class="col-1 text-center">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="col-8">
+                    <span>Rank on BGG:</span>
+                </div>
+                <div class="col-3 text-right">{{ product.rank }}</div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-1 text-center">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="col-8">
+                    <span>Complexity:</span>
+                </div>
+                <div class="col-3 text-right">{{ product.weight }} / 5</div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-1 text-center">
+                    <i class="far fa-calendar-alt"></i>
+                </div>
+                <div class="col-8">
+                    <span>Year:</span>
+                </div>
+                <div class="col-3 text-right">{{ product.year }}</div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-1 text-center">
+                    <i class="fas fa-pencil-alt"></i>
+                </div>
+                <div class="col-8">
+                    <span>Designer:</span>
+                </div>
+                <div class="col-3 text-right">{{ product.designer }}</div>
+            </div>
+            <div class="row d-flex justify-content-center mt-4">
+                <div class="col text-center">For more details, see<a href="{{ product.bgg_url }}" target="_blank" class="ml-1 text-decoration-none">Boardgame Geek</a>.</div>
+            </div>
+        </div>
+    </div>
+    <hr class="w-50 my-4">
+    <div class="row d-flex justify-content-center ">
+        <div class="col col-lg-7 text-left mb-4 text-white">
+            <h5 class="logo-font">categories</h5>
+            <p>
+                {% for category in product.categories %}
+                    <a href="{% url 'games' %}?category={{ category.name }}">{{ category.friendly_name }}</a>
+                    {% if not forloop.last %}
+                    <span class="text-muted mx-2">/</span>
+                    {% endif %}
+                {% endfor %}
+            </p>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center ">
+        <div class="col col-lg-7 text-left mb-4 text-white">
+            <h5 class="logo-font">mechanics</h5>
+            <p>
+            {% for mechanic in product.mechanics %}
+                <a href="{% url 'games' %}?mechanic={{ mechanic.name }}">{{ mechanic.friendly_name }}</a>
+                {% if not forloop.last %}
+                <span class="text-muted mx-2">/</span>
+                {% endif %}
+            {% endfor %}
+            </p>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block postloadjs %}
