@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse, HttpResponse
 
-MEMBERSHIP_ID_MIN = 5000
+from games.models import Product
 
 
 # To render the bag contents page
@@ -8,12 +8,22 @@ def view_bag(request):
     return render(request, 'bag/bag.html')
 
 
+def is_membership(prod_id):
+    is_membership = False
+    try:
+        product = Product.objects.get(id=prod_id)
+        is_membership = product.is_membership
+    except (Product.DoesNotExist, TypeError) as e:
+        print("Can't get product:", e)
+
+    return is_membership
+
+
 def handle_membership(request, bag):
     # ensure that only one membership can be added to bag simultaneously
     temp_bag = bag
     for bag_item_id in list(temp_bag.keys()):
-        bag_item_id_int = int(bag_item_id)
-        if bag_item_id_int >= MEMBERSHIP_ID_MIN:
+        if is_membership(bag_item_id):
             del bag[bag_item_id]
 
     # get the membership
@@ -29,8 +39,7 @@ def add_to_bag(request, item_id):
     redirect_url = request.POST.get('redirect_url')
     bag = request.session.get('bag', {})
 
-    item_id_int = int(item_id)
-    if item_id_int >= MEMBERSHIP_ID_MIN:
+    if is_membership(item_id):
         handle_membership(request, bag)
     else:
         if item_id in list(bag.keys()):

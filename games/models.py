@@ -56,8 +56,11 @@ class Product(models.Model):
     weight = models.DecimalField(
         max_digits=4, decimal_places=2, null=True, blank=True)
 
-    # to make the membership invisible in the shop page
+    # to make items invisible in the shop page
     is_visible = models.BooleanField(default=True)
+
+    # used to distinguish membership in places like the bag
+    is_membership = models.BooleanField(default=False)
 
     def __str__(self):
         return self.names

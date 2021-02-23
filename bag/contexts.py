@@ -45,7 +45,7 @@ def bag_contents(request):
         unit_price = product.price
 
         discount = get_discount(request)
-        if product.id < 5000:
+        if not product.is_membership:
             product.discounted_price = round(Decimal(discount * float(product.price)), 2)
             unit_price = product.discounted_price
 

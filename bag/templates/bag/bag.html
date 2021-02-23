@@ -48,13 +48,14 @@
                                         <p class="my-0"><strong>{{ item.product.names }}</strong></p>
                                     </td>
                                     <td class="py-3 align-middle text-right">
-                                        {% if item.product.discounted_price != item.product.price %}
+                                        {% if item.product.discounted_price and item.product.discounted_price != item.product.price %}
                                         <p class="my-0">€{{ item.product.discounted_price }}<span class="ml-2 text-muted font-weight-normal"><del>€{{ item.product.price }}</del></span></p>
                                         {% else %}
                                         <p class="my-0">€{{ item.product.price }}</p>
                                         {% endif %}
                                     </td>
                                     <td class="py-3 align-middle text-right">
+                                        {% if not item.product.is_membership %}
                                         <form class="form update-form" method="POST" action="{% url 'adjust_bag' item.item_id %}" >
                                             {% csrf_token %}
                                             <div class="form-group">
@@ -83,6 +84,9 @@
                                         </form>
                                         <a class="update-link text-info"><small>Update</small></a>
                                         <a class="remove-item text-danger float-right" id="remove_{{ item.item_id }}" data-size="{{ item.size }}"><small>Remove</small></a>
+                                        {% else %}
+                                        {{ item.quantity }}
+                                        {% endif %}
                                     </td>
                                     <td class="py-3 align-middle text-right">
                                         <p class="my-0">€{{ item.subtotal }}</p>
