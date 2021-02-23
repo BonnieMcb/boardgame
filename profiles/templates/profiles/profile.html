@@ -19,19 +19,26 @@
 {% block content %}
 
 <div class="container">
-    {% if membership %}
+    {% if user.is_authenticated %}
     <!-- membership details -->
     <div class="row d-flex justify-content-center mb-5">
         <div class="col col-lg-6">
             <div class="row text-light">
                 <div class="col text-center">
-                    <p>Hi, {{ user }}!</p>
-                    {% if membership.is_premium %}
-                        <p>You are currently a Premium Member.</p>
-                    {% else %}
-                        <p>You are currently a member.</p>
+                    {% if membership %} <!-- This text is shown if user is a member -->
+                        <p>Hi, {{ user }}!</p>
+                        {% if membership.is_premium %}
+                            <p>You are currently a Premium Member.</p>
+                        {% else %}
+                            <p>You are currently a member.</p>
+                        {% endif %}
+                        <p>Your membership expires on {{ membership.expiry }}.</p>
+                    
+                    {% else %} <!-- This text is shown if user is NOT a member -->
+                        <p>Explore our various levels of membership below. 
+                            Only members get permanent discounts and access to exclusive events.</p>
+                        <p>Go to our <a href="{% url 'membership' %}">Membership</a> page for more details.</p>
                     {% endif %}
-                    <p>Your membership expires on {{ membership.expiry }}.</p>
                     <form method="post" action="{% url 'account_logout' %}">
                         {% csrf_token %}
                         {% if redirect_field_value %}
