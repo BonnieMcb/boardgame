@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<!-- jQuery Modal -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<link rel="stylesheet" href="{% static 'staff/css/staff.css' %}" />
+{% endblock %}
+
+{% block extra_js %}
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+{% endblock %}
+
+{% block page_header %}
+<div class="container header-container mt-5">
+    <div class="row">
+        <div class="col text-center mb-4 text-light">
+            <h2 class="logo-font text-danger">staff only</h2>
+            <hr class="w-50">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col col-lg-8">
+            <div class="row mb-3">
+                <div class="col d-flex justify-content-end ">
+                    <button id="delete-btn" class="btn btn-danger" disabled>Delete Selected</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                {% for game in page_obj %}
+                <div class="row py-1 d-flex align-items-center bg-light text-dark m-0">
+                    <label class="col-1 bg-transparent mb-0" for="check-{{ game.id }}">
+                        <input type="checkbox" value="" id="check-{{ game.id }}" class="delete-check">
+                    </label>
+                    <div class="col-1 game-id">{{ game.id }}</div>
+                    <div class="col game-name"><a href="">{{ game.names }}</a></div>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+            <hr class="w-50 my-4">
+            <div class="row text-center text-light mb-5">
+                <div class="col">
+                {% if page_obj.paginator.num_pages > 1 %}
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}" class="mr-2">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                    {% endif %}
+                    <span>{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}" class="ml-2">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    {% endif %}
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal">
+    <div class="container">
+        <div class="row">
+            <h4 class="col logo-font text-dark mt-2">Delete</h4>
+        </div>
+        <hr class="my-2">
+        <div class="row">
+            <div class="col text-danger"><span id="delete-text"></span></div>
+        </div>
+        <div class="row">
+            <div id="delete-contents" class="col text-right"></div>
+        </div>
+        <hr>
+        <div class="row float-right">
+            <form action="{% url 'remove_product' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" id="product_ids" name="product_ids">
+                <button type="submit" class="btn btn-primary mr-3">OK</button>
+            </form>
+            <a href="#" rel="modal:close" class="btn btn-primary">Cancel</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <script src="{% static 'staff/js/staff.js' %}"></script>
+{% endblock %}

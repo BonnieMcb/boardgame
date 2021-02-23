@@ -1,0 +1,17 @@
+/* Fixes bug with close button, see https://stackoverflow.com/a/54716844 */
+.modal {
+    overflow: initial
+}
+
+.modal {
+    max-height: 300px;
+}
+
+#delete-contents {
+    height: 100px;
+    overflow-y: auto;
+}
+
+.modal .btn {
+    width: 80px;
+}
