@@ -15,3 +15,14 @@
 .modal .btn {
     width: 80px;
 }
+
+/* shop editing */
+
+form {
+    display: contents
+}
+
+input[type=text], input[type=number], input[type=url], select {
+    width: 90%;
+    text-align: right;
+}

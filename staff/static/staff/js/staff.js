@@ -1,5 +1,3 @@
-console.log("Staff JS loaded.")
-
 $(document).ready(function() {
 
     let all = $('.delete-check');

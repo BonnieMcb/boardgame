@@ -35,17 +35,10 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header">Edit Product</div>
-                        <div class="card-body">Alter an existing item, including removing it from sale.</div>
+                        <div class="card-header">Edit Product(s)</div>
+                        <div class="card-body">Alter existing items, including removing from sale, or deleting entirely.</div>
                         <div class="card-footer">
-                            <a href="{% url 'edit_product' %}" class="btn btn-primary float-right">Edit</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">Remove Product</div>
-                        <div class="card-body">Permanently remove a product from the shop.</div>
-                        <div class="card-footer">
-                            <a href="{% url 'remove_product' %}" class="btn btn-primary float-right">Remove</a>
+                            <a href="{% url 'product_list' %}" class="btn btn-primary float-right">Edit</a>
                         </div>
                     </div>
                 </div>

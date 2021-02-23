@@ -27,16 +27,42 @@
 
 <div class="container">
     <div class="row d-flex justify-content-center">
-        <div class="col col-lg-10 text-white">
+        <div class="col col-lg-8">
+            <div class="row mb-3">
+                <div class="col d-flex justify-content-end ">
+                    <button id="delete-btn" class="btn btn-danger" disabled>Delete Selected</button>
+                </div>
+            </div>
             <div class="row">
-                <form method="POST" action="{% url 'commit_edit' product_id %}">
-                    {% csrf_token %}
-                    {% include "staff/includes/product_details.html" %}
-                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                    <div class="col d-flex justify-content-center mt-5">
-                        <button type="submit" class="btn btn-primary">Submit</button>                        
-                    </div>
-                </form>
+                <div class="col">
+                {% for game in page_obj %}
+                <div class="row py-1 d-flex align-items-center bg-light text-dark m-0">
+                    <label class="col-1 bg-transparent mb-0" for="check-{{ game.id }}">
+                        <input type="checkbox" value="" id="check-{{ game.id }}" class="delete-check">
+                    </label>
+                    <div class="col-1 game-id">{{ game.id }}</div>
+                    <div class="col game-name"><a href="{% url 'edit_product' game.id %}">{{ game.names }}</a></div>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+            <hr class="w-50 my-4">
+            <div class="row text-center text-light mb-5">
+                <div class="col">
+                {% if page_obj.paginator.num_pages > 1 %}
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}" class="mr-2">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                    {% endif %}
+                    <span>{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}" class="ml-2">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    {% endif %}
+                {% endif %}
+                </div>
             </div>
         </div>
     </div>
