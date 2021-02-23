@@ -15,7 +15,13 @@ def staff(request):
 
 def add_product(request):
 
-    return render(request, 'staff/add_product.html')
+    form = ProductForm()
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'staff/add_product.html', context)
 
 
 def product_list(request):
@@ -54,6 +60,16 @@ def commit_edit(request, prod_id):
         form.save()
     except (Product.DoesNotExist, TypeError) as e:
         print("Can't find product: ", e)
+
+    return redirect(redirect_url)
+
+
+def commit_add(request):
+
+    redirect_url = request.POST.get('redirect_url')
+
+    form = ProductForm(request.POST)
+    form.save()
 
     return redirect(redirect_url)
 

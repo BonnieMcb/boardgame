@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block extra_css %}
+<link rel="stylesheet" href="{% static 'staff/css/staff.css' %}" />
 {% endblock %}
 
 {% block page_header %}
@@ -16,4 +17,22 @@
 {% endblock %}
 
 {% block content %}
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col col-lg-10 text-white">
+            <div class="row">
+                <form method="POST" action="{% url 'commit_add' %}">
+                    {% csrf_token %}
+                    {% include "staff/includes/product_details.html" %}
+                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                    <div class="col d-flex justify-content-center mt-5">
+                        <button type="submit" class="btn btn-primary">Submit</button>                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

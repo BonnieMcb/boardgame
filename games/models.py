@@ -34,14 +34,14 @@ class Product(models.Model):
     mechanic_id = models.ManyToManyField(
         Mechanic, related_name='product_mechanic_id', blank=True)
     names = models.CharField(max_length=254)
-    min_players = models.IntegerField(null=True, blank=True)
-    max_players = models.IntegerField(null=True, blank=True)
-    avg_time = models.IntegerField(null=True, blank=True)
+    min_players = models.IntegerField(null=True)
+    max_players = models.IntegerField(null=True)
+    avg_time = models.IntegerField(null=True)
     min_time = models.IntegerField(null=True, blank=True)
     max_time = models.IntegerField(null=True, blank=True)
-    age = models.IntegerField(null=True, blank=True)
+    age = models.IntegerField(null=True)
     price = models.DecimalField(max_digits=5, decimal_places=2)
-    image_url = models.URLField(max_length=500, blank=True, default=None)
+    image_url = models.URLField(max_length=500, default=None)
     rank = models.IntegerField(null=True, blank=True)
     bgg_url = models.URLField(max_length=500, blank=True, default=None)
     game_id = models.IntegerField(null=True, blank=True)
@@ -49,12 +49,12 @@ class Product(models.Model):
     avg_rating = models.DecimalField(
         null=True, blank=True, max_digits=4, decimal_places=2)
     geek_rating = models.DecimalField(
-        max_digits=4, decimal_places=2, null=True, blank=True)
+        max_digits=4, decimal_places=2, null=True)
     num_votes = models.IntegerField(null=True, blank=True)
     owned = models.IntegerField(null=True, blank=True)
     designer = models.CharField(max_length=254, blank=True, default=None)
     weight = models.DecimalField(
-        max_digits=4, decimal_places=2, null=True, blank=True)
+        max_digits=4, decimal_places=2, null=True)
 
     # to make items invisible in the shop page
     is_visible = models.BooleanField(default=True)

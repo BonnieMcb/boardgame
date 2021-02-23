@@ -39,27 +39,31 @@ def bag_contents(request):
     gross_total = 0
 
     for item_id, quantity in bag.items():
-        product = get_object_or_404(Product, pk=item_id)
 
-        # apply membership discounts, if needed
-        unit_price = product.price
+        try:
+            product = Product.objects.get(pk=item_id)
 
-        discount = get_discount(request)
-        if not product.is_membership:
-            product.discounted_price = round(Decimal(discount * float(product.price)), 2)
-            unit_price = product.discounted_price
+            # apply membership discounts, if needed
+            unit_price = product.price
 
-        subtotal = quantity * unit_price
-        gross_total += quantity * product.price
+            discount = get_discount(request)
+            if not product.is_membership:
+                product.discounted_price = round(Decimal(discount * float(product.price)), 2)
+                unit_price = product.discounted_price
 
-        total += subtotal
-        product_count += quantity
-        bag_items.append({
-            'item_id': item_id,
-            'quantity': quantity,
-            'product': product,
-            'subtotal': subtotal
-        })
+            subtotal = quantity * unit_price
+            gross_total += quantity * product.price
+
+            total += subtotal
+            product_count += quantity
+            bag_items.append({
+                'item_id': item_id,
+                'quantity': quantity,
+                'product': product,
+                'subtotal': subtotal
+            })
+        except Product.DoesNotExist as e:
+            print("Can't find product:", e)
 
     grand_total = total
     total_discount = grand_total - gross_total

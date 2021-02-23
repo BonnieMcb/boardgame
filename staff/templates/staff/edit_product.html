@@ -2,14 +2,7 @@
 {% load static %}
 
 {% block extra_css %}
-<!-- jQuery Modal -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <link rel="stylesheet" href="{% static 'staff/css/staff.css' %}" />
-{% endblock %}
-
-{% block extra_js %}
-<!-- jQuery Modal -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 {% endblock %}
 
 {% block page_header %}
@@ -42,33 +35,4 @@
     </div>
 </div>
 
-<div class="modal">
-    <div class="container">
-        <div class="row">
-            <h4 class="col logo-font text-dark mt-2">Delete</h4>
-        </div>
-        <hr class="my-2">
-        <div class="row">
-            <div class="col text-danger"><span id="delete-text"></span></div>
-        </div>
-        <div class="row">
-            <div id="delete-contents" class="col text-right"></div>
-        </div>
-        <hr>
-        <div class="row float-right">
-            <form action="{% url 'remove_product' %}" method="POST">
-                {% csrf_token %}
-                <input type="hidden" id="product_ids" name="product_ids">
-                <button type="submit" class="btn btn-primary mr-3">OK</button>
-            </form>
-            <a href="#" rel="modal:close" class="btn btn-primary">Cancel</a>
-        </div>
-    </div>
-</div>
-
-{% endblock %}
-
-{% block postloadjs %}
-    {{ block.super }}
-    <script src="{% static 'staff/js/staff.js' %}"></script>
 {% endblock %}
