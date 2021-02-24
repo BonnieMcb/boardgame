@@ -27,18 +27,46 @@
             </div>
             <div class="row d-flex justify-content-center">
                 <div class="card-deck">
-                    <div class="card">
+                    <div class="card" style="width: 25rem;">
                         <div class="card-header">Add Product</div>
                         <div class="card-body">Create and add a new product to the shop.</div>
                         <div class="card-footer">
                             <a href="{% url 'add_product' %}" class="btn btn-primary float-right">Add</a>
                         </div>
                     </div>
-                    <div class="card">
+                    <div class="card" style="width: 25rem;">
                         <div class="card-header">Edit Product(s)</div>
                         <div class="card-body">Alter existing items, including removing from sale, or deleting entirely.</div>
                         <div class="card-footer">
                             <a href="{% url 'product_list' %}" class="btn btn-primary float-right">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center mt-5">
+        <div class="col col-lg-8">
+            <div class="row">
+                <div class="col text-center mb-4 text-light">
+                    <h4 class="logo-font">events</h4>
+                    <hr class="w-50">
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center mb-2">
+                <div class="card-deck">
+                    <div class="card" style="width: 25rem;">
+                        <div class="card-header">Add Event</div>
+                        <div class="card-body">Create and add a new event.</div>
+                        <div class="card-footer">
+                            <a href="{% url 'add_event' %}" class="btn btn-primary float-right">Add</a>
+                        </div>
+                    </div>
+                    <div class="card" style="width: 25rem;">
+                        <div class="card-header">Edit Event(s)</div>
+                        <div class="card-body">Alter existing events, including postponing or cancelling.</div>
+                        <div class="card-footer">
+                            <a href="{% url 'event_list' %}" class="btn btn-primary float-right">Edit</a>
                         </div>
                     </div>
                 </div>

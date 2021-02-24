@@ -1,5 +1,6 @@
 from django import forms
 from games.models import Product
+from events.models import Events
 
 
 class ProductForm(forms.ModelForm):
@@ -12,6 +13,20 @@ class ProductForm(forms.ModelForm):
                   'year', 'avg_rating', 'geek_rating',
                   'num_votes', 'owned', 'designer', 'weight',
                   'is_visible', 'is_membership')
+
+    def __init__(self, *args, **kwargs):
+        """
+        Add placeholders and classes, remove auto-generated
+        labels and set autofocus on first field
+        """
+        super().__init__(*args, **kwargs)
+
+
+class EventForm(forms.ModelForm):
+    class Meta:
+        model = Events
+        fields = ('name', 'datetime', 'description', 'image',
+                  'offsite_url', 'member_only', 'signed_up_users')
 
     def __init__(self, *args, **kwargs):
         """

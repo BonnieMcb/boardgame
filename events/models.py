@@ -15,11 +15,8 @@ class Events(models.Model):
     offsite_url = models.URLField(blank=True)
     member_only = models.BooleanField()
     signed_up_users = models.ManyToManyField(
-        UserProfile, blank=True,)
+        UserProfile, blank=True)
 
     def __str__(self):
         return self.name
-
-    def save(self, *args, **kwargs):
-        print("save the daaaaate")
 

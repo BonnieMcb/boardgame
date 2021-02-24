@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, reverse
 
-from .contexts import shop_list, is_staff
+from .contexts import shop_list, is_staff, event_list
 from games.models import Product
-from .forms import ProductForm
+from events.models import Events
+from .forms import ProductForm, EventForm
 
 
 def staff(request):
@@ -89,3 +90,88 @@ def remove_product(request):
                 print("Can't find product: ", e)
 
     return redirect(reverse('product_list'))
+
+
+""" Views for Events are below """
+
+
+def add_event(request):
+
+    form = EventForm()
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'staff/add_event.html', context)
+
+
+def events_list(request):
+
+    context = {
+        'page_obj': event_list(request)
+    }
+
+    return render(request, 'staff/event_list.html', context)
+
+
+def edit_event(request, event_id):
+
+    form = None
+    try:
+        event = Events.objects.get(id=event_id)
+        form = EventForm(instance=event)
+    except (Events.DoesNotExist, TypeError) as e:
+        print("Can't find event: ", e)
+
+    context = {
+        'form': form,
+        'event_id': event_id
+    }
+
+    return render(request, 'staff/edit_event.html', context)
+
+
+def commit_edit_event(request, event_id):
+
+    redirect_url = request.POST.get('redirect_url')
+
+    try:
+        event = Events.objects.get(id=event_id)
+        form = EventForm(request.POST, instance=event)
+        form.save()
+    except (Events.DoesNotExist, TypeError) as e:
+        print("Can't find event: ", e)
+
+    return redirect(redirect_url)
+
+
+def commit_add_event(request):
+
+    redirect_url = request.POST.get('redirect_url')
+
+    try:
+        form = EventForm(request.POST)
+        print("errors", form.errors)
+        form.save()
+    except ValueError as e:
+        print("VE", e)
+
+    return redirect(redirect_url)
+
+
+def remove_event(request):
+
+    post_data = request.POST.get('event_ids')
+    if post_data:
+        event_ids = post_data.split(',')
+        for event_id in event_ids:
+            # get the event
+            try:
+                event = Events.objects.get(id=event_id)
+                # remove the event
+                event.delete()
+            except (Events.DoesNotExist, TypeError) as e:
+                print("Can't find event: ", e)
+
+    return redirect(reverse('event_list'))

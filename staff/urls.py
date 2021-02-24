@@ -9,4 +9,11 @@ urlpatterns = [
     path('shop/edit/<product_id>', views.edit_product, name='edit_product'),
     path('shop/edit/commit/<prod_id>', views.commit_edit, name='commit_edit'),
     path('shop/remove/', views.remove_product, name='remove_product'),
+
+    path('event/add/', views.add_event, name='add_event'),
+    path('event/add/commit/', views.commit_add_event, name='commit_add_event'),
+    path('event/edit/', views.events_list, name='event_list'),
+    path('event/edit/<event_id>', views.edit_event, name='edit_event'),
+    path('event/edit/commit/<event_id>', views.commit_edit_event, name='commit_edit_event'),
+    path('event/remove/', views.remove_event, name='remove_event'),
 ]

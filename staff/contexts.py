@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator
 from games.models import Product
+from events.models import Events
 
 
 def is_staff(request):
@@ -24,3 +25,15 @@ def shop_list(request):
     page_obj = paginator.get_page(page_number)
 
     return page_obj
+
+
+def event_list(request):
+    events = Events.objects.all()
+
+    paginator = Paginator(events, 25)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return page_obj
+
