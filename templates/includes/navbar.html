@@ -23,7 +23,9 @@
                     <li class="nav-item">
                         <a class="text-dark nav-link" href="{% url 'profile' %}">
                             <div class="">
-                                <span class="mr-2">Hello, <strong>{{ request.user }}</strong></span>
+                                {% if user.is_authenticated %}
+                                    <span class="mr-2"><strong>{{ request.user }}</strong></span>
+                                {% endif %}
                                 <i class="fas fa-user mr-1"></i>
                             </div>
                         </a>
@@ -38,6 +40,13 @@
                             </div>
                         </a>
                     </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="text-dark nav-link" href="{% url 'account_logout' %}">
+                            <div class="">logout</div>
+                        </a>
+                    </li>
+                    {% endif %}
                 </ul>     
             </div>
         </div>
