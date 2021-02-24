@@ -10,25 +10,42 @@ body {
     margin: 0;
 }
 
+.overlay{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgba(0,0,0,0.45);
+    color: #f8f9fa;
+}
 
-#top {
-    background-image: url(/media/centralperk.jpg);
+.section-content {
+    width: 70%;
+    position: relative;
+    top: 10vh;
+    left:5vh;
+}
+
+.backgrounds {
+    position: relative; 
     background-repeat: no-repeat;
     background-size: cover;
-    opacity: 0.6;
+}
+#top {
+    background-image: url(/media/centralperk.jpg);
 }
 
 #bottom {
-    background: yellowgreen;
+    background-image: url(/media/4colour_game.jpg);
 }
 
-
-#left {
-    background: brown;
+#left { 
+    background-image: url(/media/events-image.jpg);
 }
 
 #right {
-    background: cadetblue;
+    background-image: url(/media/membership-image.jpg);
 }
 
 h2.title {
