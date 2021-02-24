@@ -4,6 +4,9 @@
     <link rel="stylesheet" href="{% static 'css/games.css' %}">
 {% endblock %}
 
+{% block extra_js %}
+    <script src="{% static 'js/base.js' %}"></script>
+{% endblock %}
 
 <body>
     
@@ -154,6 +157,10 @@
             </div>
         </div>
     </div>
+    <!-- Back to top button (referenced in Readme.md)-->
+    <a id="back-to-top" href="#" class="btn btn-warning btn-lg back-to-top" role="button">
+        <i class="fas fa-arrow-up"></i>
+    </a>
 
 {% endblock %}
 
