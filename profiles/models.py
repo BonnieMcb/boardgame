@@ -13,7 +13,7 @@ class UserProfile(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    # TODO: Add the ability to save defaults
+    full_name = models.CharField(max_length=40, null=True, blank=True)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
     country = CountryField(blank_label='Country *', null=True, blank=True)
     postcode = models.CharField(max_length=20, null=True, blank=True)

@@ -8,6 +8,7 @@ from .models import Order, OrderLineItem
 from games.models import Product
 from membership.models import Membership
 from bag.contexts import bag_contents
+from profiles.models import UserProfile
 
 # for membership calculations
 from dateutil.relativedelta import *
@@ -40,6 +41,7 @@ def cache_checkout_data(request):
 def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
+    has_address = False
 
     if request.method == 'POST':
         bag = request.session.get('bag', {})
@@ -47,7 +49,6 @@ def checkout(request):
         form_data = {
             'username': request.user,
             'full_name': request.POST['full_name'],
-            'email': request.POST['email'],
             'phone_number': request.POST['phone_number'],
             'country': request.POST['country'],
             'postcode': request.POST['postcode'],
@@ -102,7 +103,15 @@ def checkout(request):
             currency=settings.STRIPE_CURRENCY,
         )
 
-        order_form = OrderForm()
+        # To get user address data if there is any
+        profile = None
+        try:
+            profile = UserProfile.objects.get(user=request.user)
+        except (UserProfile.DoesNotExist, TypeError, ValueError) as e:
+            print("Cannot get user address:", e)
+
+        order_form = OrderForm(instance=profile)
+        has_address = not order_form.errors
 
     if not stripe_public_key:
         messages.warning(request, 'Stripe public key is missing. \
@@ -113,6 +122,7 @@ def checkout(request):
         'order_form': order_form,
         'stripe_public_key': stripe_public_key,
         'client_secret': intent.client_secret,
+        'has_address': has_address
     }
 
     return render(request, template, context)
@@ -176,9 +186,10 @@ def checkout_success(request, order_number):
     """
     save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
+
+    # TODO: add user email address
     messages.success(request, f'Order successfully processed! \
-        Your order number is {order_number}. A confirmation \
-        email will be sent to {order.email}.')
+        Your order number is {order_number}. A confirmation email will be sent.')
 
     if 'bag' in request.session:
         # check if we just redeemed any memberships, and apply them if we did

@@ -1,12 +1,25 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from .models import UserProfile
 from checkout.models import Order
 from events.models import Events
 
+from checkout.forms import OrderForm
+
 from membership.contexts import get_membership
 
-# Create your views here.
+
+def update_address(request):
+    redirect_url = request.POST.get('redirect_url')
+
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+        form = OrderForm(request.POST, instance=profile)
+        form.save()
+    except (UserProfile.DoesNotExist, TypeError, ValueError) as e:
+        print("Address update failed: ", e)
+
+    return redirect(redirect_url)
 
 
 def profile(request):
@@ -21,6 +34,10 @@ def profile(request):
     membership = get_membership(request)
     user = request.user
 
+    # get address details for this user, if there are any
+    address_form = None
+    if profile:
+        address_form = OrderForm(instance=profile)
 
     # get previous orders by this user, if there are any
     orders = None
@@ -47,7 +64,8 @@ def profile(request):
         'profile': profile,
         'membership': membership,
         'orders': orders,
-        'events': events
+        'events': events,
+        'order_form': address_form
     }
 
     return render(request, template, context)

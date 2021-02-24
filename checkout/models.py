@@ -30,7 +30,7 @@ class Order(models.Model):
     original_bag = models.TextField(null=False, blank=False, default='')
     stripe_pid = models.CharField(max_length=254, null=False, blank=False, default='')
     # the user with which the user logs in to the site
-    username = models.CharField(max_length=254, null=False, default='')
+    username = models.CharField(max_length=254, null=False, default='', blank=True)
 
     def _generate_order_number(self):
         # Generate a random, unique order number by summing line item total
