@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, reverse
+from django.contrib import messages
 
 from .contexts import shop_list, is_staff, event_list
 from games.models import Product
@@ -22,6 +23,7 @@ def add_product(request):
         'form': form
     }
 
+    messages.success(request, 'Product added')
     return render(request, 'staff/add_product.html', context)
 
 
@@ -48,6 +50,7 @@ def edit_product(request, product_id):
         'product_id': product_id
     }
 
+    messages.success(request, 'Product edited')
     return render(request, 'staff/edit_product.html', context)
 
 
@@ -89,6 +92,7 @@ def remove_product(request):
             except (Product.DoesNotExist, TypeError) as e:
                 print("Can't find product: ", e)
 
+    messages.success(request, 'Product deleted')
     return redirect(reverse('product_list'))
 
 
@@ -102,7 +106,7 @@ def add_event(request):
     context = {
         'form': form
     }
-
+    messages.success(request, 'Event added')
     return render(request, 'staff/add_event.html', context)
 
 
@@ -129,6 +133,7 @@ def edit_event(request, event_id):
         'event_id': event_id
     }
 
+    messages.success(request, 'Event edited')
     return render(request, 'staff/edit_event.html', context)
 
 
@@ -174,4 +179,5 @@ def remove_event(request):
             except (Events.DoesNotExist, TypeError) as e:
                 print("Can't find event: ", e)
 
+    messages.success(request, 'Event deleted')
     return redirect(reverse('event_list'))

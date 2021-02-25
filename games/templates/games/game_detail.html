@@ -131,12 +131,12 @@
             
             <div class="row d-flex justify-content-center">
                 <div class="col-1 text-center">
-                    <i class="fas fa-trophy"></i>
+                    <i class="fas fa-star"></i>
                 </div>
                 <div class="col-8">
-                    <span>Rank on BGG:</span>
+                    <span>Rating:</span>
                 </div>
-                <div class="col-3 text-right">{{ product.rank }}</div>
+                <div class="col-3 text-right">{{ product.geek_rating }}<span class="font-weight-light"> / 10</span></div>
             </div>
             <div class="row d-flex justify-content-center">
                 <div class="col-1 text-center">
@@ -145,7 +145,7 @@
                 <div class="col-8">
                     <span>Complexity:</span>
                 </div>
-                <div class="col-3 text-right">{{ product.weight }} / 5</div>
+                <div class="col-3 text-right">{{ product.weight }}<span class="font-weight-light"> / 5</span></div>
             </div>
             <div class="row d-flex justify-content-center">
                 <div class="col-1 text-center">

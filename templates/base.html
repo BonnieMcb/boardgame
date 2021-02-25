@@ -48,7 +48,11 @@
     {% include 'includes/navbar.html' %} 
 
     {% if messages %}
-       <div class="message-container"></div>
+       <div class="message-container">
+            {% for message in messages %}
+                {% include 'includes/toasts/toast_success.html' %}
+            {% endfor %}
+       </div>
     {% endif %}
 
     {% block page_header %}
@@ -63,8 +67,13 @@
             <span>5 Quay St, Falmouth, TR11 3HH, email: email@email, Tel: 01234 56789</span>
         </div>
     </footer>
-</body>
-{% block postloadjs %}
 
-{% endblock %}
+    {% block postloadjs %}
+    <script type="text/javascript">
+        $('.toast').toast('show');
+        console.log('TOAST TEST')
+    </script>
+    {% endblock %}
+
+    </body>
 </html>

@@ -47,6 +47,21 @@ input[type=number] {
     cursor: pointer;
 }
 
+/* Toasts */
+.message-container {
+    position: fixed;
+    top: 72px;
+    right: 15px;
+    z-index: 9999999;
+}
+
+.custom-toast {
+    overflow: visible;
+}
+
+.toast-capper {
+    height: 2px;
+}
 
 /* Required for Material Design Icons to function */
 .mdi::before {

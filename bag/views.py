@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, reverse, HttpResponse
+from django.contrib import messages
 
 from games.models import Product
 
@@ -35,13 +36,16 @@ def handle_membership(request, bag):
 
 # To add specified quantity for specific product to the bag
 def add_to_bag(request, item_id):
+    product = Product.objects.get(pk=item_id)
     quantity = int(request.POST.get('quantity'))
     redirect_url = request.POST.get('redirect_url')
     bag = request.session.get('bag', {})
 
     if is_membership(item_id):
         handle_membership(request, bag)
+        messages.success(request, 'Added membership to your bag')
     else:
+        messages.success(request, 'Added item to your bag')
         if item_id in list(bag.keys()):
             bag[item_id] += quantity
         else:

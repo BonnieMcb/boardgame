@@ -22,6 +22,8 @@
         <div class="row d-flex justify-content-center">
             <div class="col col-lg-6 text-light">
 
+                {% if confirmation %}
+                
                 {% user_display confirmation.email_address.user as user_display %}
 
                 <p>{% blocktrans with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user {{ user_display }}.{% endblocktrans %}</p>
