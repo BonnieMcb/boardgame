@@ -50,7 +50,6 @@ def edit_product(request, product_id):
         'product_id': product_id
     }
 
-    messages.success(request, 'Product edited')
     return render(request, 'staff/edit_product.html', context)
 
 
@@ -65,6 +64,7 @@ def commit_edit(request, prod_id):
     except (Product.DoesNotExist, TypeError) as e:
         print("Can't find product: ", e)
 
+    messages.success(request, 'Product edited')
     return redirect(redirect_url)
 
 
@@ -133,7 +133,6 @@ def edit_event(request, event_id):
         'event_id': event_id
     }
 
-    messages.success(request, 'Event edited')
     return render(request, 'staff/edit_event.html', context)
 
 
@@ -148,6 +147,7 @@ def commit_edit_event(request, event_id):
     except (Events.DoesNotExist, TypeError) as e:
         print("Can't find event: ", e)
 
+    messages.success(request, 'Event edited')
     return redirect(redirect_url)
 
 

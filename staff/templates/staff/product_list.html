@@ -89,7 +89,7 @@
         <div class="row float-right">
             <form action="{% url 'remove_product' %}" method="POST">
                 {% csrf_token %}
-                <input type="hidden" id="product_ids" name="product_ids">
+                <input type="hidden" class="remove_ids" name="product_ids">
                 <button type="submit" class="btn btn-primary mr-3">OK</button>
             </form>
             <a href="#" rel="modal:close" class="btn btn-primary">Cancel</a>

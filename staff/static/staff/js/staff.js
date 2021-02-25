@@ -15,7 +15,7 @@ $(document).ready(function() {
 
         let checked = $('.delete-check:checked');
 
-        $('#product_ids').val('');
+        $('.remove_ids').val('');
         $('#delete-contents').html('');
 
         allIds = [];
@@ -24,7 +24,7 @@ $(document).ready(function() {
 
             let col = $(this).parent();
 
-            // add to the product id form
+            // add to the id form
             let id = col.siblings('.game-id').text();
             allIds.push(id);
 
@@ -35,7 +35,7 @@ $(document).ready(function() {
         });
 
         // set up the ids
-        $('#product_ids').val(allIds.join(','));
+        $('.remove_ids').val(allIds.join(','));
         
         let delText = checked.length + " ITEM" + (checked.length > 1 ? "S" : "");
         $('#delete-text').html(delText)

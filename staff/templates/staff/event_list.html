@@ -42,8 +42,8 @@
                 <div class="col">
                 {% for event in page_obj %}
                 <div class="row py-1 d-flex align-items-center bg-light text-dark m-0">
-                    <label class="col-1 bg-transparent mb-0" for="check-{{ game.id }}">
-                        <input type="checkbox" value="" id="check-{{ game.id }}" class="delete-check">
+                    <label class="col-1 bg-transparent mb-0" for="check-{{ event.id }}">
+                        <input type="checkbox" value="" id="check-{{ event.id }}" class="delete-check">
                     </label>
                     <div class="col-1 game-id">{{ event.id }}</div>
                     <div class="col game-name"><a href="{% url 'edit_event' event.id %}">{{ event.name }}</a></div>
@@ -89,7 +89,7 @@
         <div class="row float-right">
             <form action="{% url 'remove_event' %}" method="POST">
                 {% csrf_token %}
-                <input type="hidden" id="event_ids" name="event_ids">
+                <input type="hidden" class="remove_ids" name="event_ids">
                 <button type="submit" class="btn btn-primary mr-3">OK</button>
             </form>
             <a href="#" rel="modal:close" class="btn btn-primary">Cancel</a>
