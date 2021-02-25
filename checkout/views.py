@@ -11,7 +11,7 @@ from bag.contexts import bag_contents
 from profiles.models import UserProfile
 
 # for membership calculations
-from dateutil.relativedelta import *
+import dateutil.relativedelta
 from datetime import datetime
 
 import stripe
