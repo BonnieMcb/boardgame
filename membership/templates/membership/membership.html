@@ -60,6 +60,7 @@
                     <p>Member-only Offers</p>
                 </div>
                 <div class="card-footer">
+                    {% if not user.is_anonymous %}
                     <form class="form" action="{% url 'add_to_bag' 5000 %}" method="POST">
                         {% csrf_token %}
                         <div class="form-row mb-3 justify-content-center">
@@ -75,6 +76,13 @@
                             <input type="submit" class="btn btn-primary float-right" value="Buy Now">
                         </div>
                     </form>
+                    {% else %}
+                    <div class="row">
+                        <div class="col text-center">
+                            <a href="{% url 'account_login' %}" class="btn btn-primary">Log in</a> to buy membership.
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
             <div class="card bg-success">
@@ -91,6 +99,7 @@
                     <p>First priority on Bookings</p>
                 </div>
                 <div class="card-footer">
+                    {% if not user.is_anonymous %}
                     <form class="form" action="{% url 'add_to_bag' 5000 %}" method="POST">
                         {% csrf_token %}
                         <div class="form-row mb-3 justify-content-center">
@@ -106,6 +115,13 @@
                             <input type="submit" class="btn btn-primary float-right" value="Upgrade">
                         </div>
                     </form>
+                    {% else %}
+                    <div class="row">
+                        <div class="col text-center">
+                            <a href="{% url 'account_login' %}" class="btn btn-primary">Log in</a> to buy membership.
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

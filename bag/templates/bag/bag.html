@@ -86,6 +86,9 @@
                                         <a class="remove-item text-danger float-right" id="remove_{{ item.item_id }}" data-size="{{ item.size }}"><small>Remove</small></a>
                                         {% else %}
                                         {{ item.quantity }}
+                                        <p>
+                                            <a class="remove-item text-danger float-right" id="remove_{{ item.item_id }}" data-size="{{ item.size }}"><small>Remove</small></a>
+                                        </p>
                                         {% endif %}
                                     </td>
                                     <td class="py-3 align-middle text-right">
