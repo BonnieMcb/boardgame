@@ -110,7 +110,7 @@
                 <div class="row">
                 {% for product in page_obj %}
                 {% if product.is_visible %}
-                    <div class="card col-xl-2 col-lg-4 my-3 border-0 bg-transparent">
+                    <div class="card col-xl-3 col-lg-4 my-3 border-0 bg-transparent">
                         <div class="card-body game-img-container">
                             <a href="{% url 'game_detail' product.id %}"> <!-- Image that links to game detail page -->
                                 <img class="card-img-top" src="{{ product.image_url }}" alt="{{ product.names }}">
