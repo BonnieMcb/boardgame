@@ -10,7 +10,8 @@ from .models import Category
 from decimal import *
 from bag.contexts import get_discount
 
-# Create your views here.
+
+DEFAULT_ITEMS_PER_PAGE = 25
 
 
 def handle_url_parameters(request):
@@ -24,7 +25,8 @@ def handle_url_parameters(request):
         'no_sort': base,
         'no_cat': base,
         'no_mech': base,
-        'no_q': base
+        'no_q': base,
+        'no_count': base
     }
 
     url_params = request.GET.urlencode()
@@ -35,6 +37,7 @@ def handle_url_parameters(request):
         has_cat = 'category' in request.GET
         has_mech = 'mechanic' in request.GET
         has_q = 'q' in request.GET
+        has_count = 'count' in request.GET
 
         if has_page:
             copy = request.GET.copy()
@@ -48,8 +51,10 @@ def handle_url_parameters(request):
                 copy.pop('direction')
             if has_page:
                 copy.pop('page')
+            if has_count:
+                copy.pop('count')
 
-            get_params['no_sort'] = copy.urlencode()
+            get_params['no_sort'] = copy.urlencode() + '&'
 
         if has_cat:
             copy = request.GET.copy()
@@ -71,6 +76,13 @@ def handle_url_parameters(request):
             if has_page:
                 copy.pop('page')
             get_params['no_q'] = copy.urlencode()
+
+        if has_count:
+            copy = request.GET.copy()
+            copy.pop('count')
+            if has_page:
+                copy.pop('page')
+            get_params['no_count'] = copy.urlencode() + '&'
 
     return get_params
 
@@ -127,7 +139,12 @@ def all_games(request):
         for game in games:
             game.discounted_price = round(discount * float(game.price), 2)
 
-    paginator = Paginator(games, 60)  # Show 60 games per page
+    items_per_page = DEFAULT_ITEMS_PER_PAGE
+    param_count = request.GET.get('count')
+    if param_count:
+        items_per_page = param_count
+
+    paginator = Paginator(games, items_per_page)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)

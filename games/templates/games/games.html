@@ -78,7 +78,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 pr-0">
+                    <div class="col-2 d-flex justify-content-end">
+                        <div class="dropdown d-flex align-items-center">
+                            <button class="btn btn-sm btn-dark dropdown-toggle" type="button" id="count-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Items Per Page
+                            </button>
+                            <div class="dropdown-menu dropdown-fixed-h" aria-labelledby="count-dropdown">
+                                <a href="?{{ get_params.no_count }}count=25" class="dropdown-item">25</a>
+                                <a href="?{{ get_params.no_count }}count=50" class="dropdown-item">50</a>
+                                <a href="?{{ get_params.no_count }}count=100" class="dropdown-item">100</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 pr-0">
                         <form method="GET" action="{% url 'games' %}">
                             <div class="input-group w-100 border border-dark">
                                 <input class="form-control rounded-0 bg-light" type="text" name="q" placeholder="Search">
