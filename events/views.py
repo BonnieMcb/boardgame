@@ -9,12 +9,19 @@ from membership.contexts import is_membership_valid
 def events(request):
     """ A view to show all events """
 
-    events = Events.objects.all()
+    events = Events.objects.all().order_by('datetime')
+
+    user = request.user
+    user_profile = None
+    try:
+        user_profile = UserProfile.objects.get(id=user.id)
+    except (UserProfile.DoesNotExist, TypeError) as e:
+        print("Can't find user", e)
 
     for event in events:
         event.sign_list = event.signed_up_users.all()
-
-    user = request.user
+        if user_profile:
+            event.is_user_signed = user_profile in event.sign_list
 
     context = {
         'events': events,
