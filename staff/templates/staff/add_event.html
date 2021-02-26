@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_js %}
+<script src="{% static 'staff/js/staff.js' %}"></script>
+{% endblock %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'staff/css/staff.css' %}" />
 {% endblock %}

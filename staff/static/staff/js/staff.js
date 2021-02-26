@@ -1,3 +1,5 @@
+console.log("SOMETHING")
+
 $(document).ready(function() {
 
     let all = $('.delete-check');
@@ -41,5 +43,11 @@ $(document).ready(function() {
         $('#delete-text').html(delText)
 
         $('.modal').modal();
+    });
+
+    $('input[name=datetime]').flatpickr({
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        minDate: 'today'
     });
 });

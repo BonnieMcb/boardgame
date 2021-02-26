@@ -23,7 +23,6 @@ def add_product(request):
         'form': form
     }
 
-    messages.success(request, 'Product added')
     return render(request, 'staff/add_product.html', context)
 
 
@@ -61,10 +60,10 @@ def commit_edit(request, prod_id):
         prod = Product.objects.get(id=prod_id)
         form = ProductForm(request.POST, instance=prod)
         form.save()
+        messages.success(request, 'Product edited')
     except (Product.DoesNotExist, TypeError) as e:
         print("Can't find product: ", e)
 
-    messages.success(request, 'Product edited')
     return redirect(redirect_url)
 
 
@@ -74,6 +73,8 @@ def commit_add(request):
 
     form = ProductForm(request.POST)
     form.save()
+
+    messages.success(request, 'Product added')
 
     return redirect(redirect_url)
 
@@ -89,10 +90,10 @@ def remove_product(request):
                 prod = Product.objects.get(id=product_id)
                 # remove the game
                 prod.delete()
+                messages.success(request, 'Product deleted')
             except (Product.DoesNotExist, TypeError) as e:
                 print("Can't find product: ", e)
 
-    messages.success(request, 'Product deleted')
     return redirect(reverse('product_list'))
 
 
@@ -106,7 +107,7 @@ def add_event(request):
     context = {
         'form': form
     }
-    messages.success(request, 'Event added')
+
     return render(request, 'staff/add_event.html', context)
 
 
@@ -144,10 +145,10 @@ def commit_edit_event(request, event_id):
         event = Events.objects.get(id=event_id)
         form = EventForm(request.POST, instance=event)
         form.save()
+        messages.success(request, 'Event edited')
     except (Events.DoesNotExist, TypeError) as e:
         print("Can't find event: ", e)
 
-    messages.success(request, 'Event edited')
     return redirect(redirect_url)
 
 
@@ -157,8 +158,8 @@ def commit_add_event(request):
 
     try:
         form = EventForm(request.POST)
-        print("errors", form.errors)
         form.save()
+        messages.success(request, 'Event added')
     except ValueError as e:
         print("VE", e)
 

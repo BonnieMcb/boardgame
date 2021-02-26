@@ -22,7 +22,7 @@ form {
     display: contents
 }
 
-input[type=text], input[type=number], input[type=url], select {
+form input[type=text], form input[type=number], form input[type=url], form select {
     width: 90%;
     text-align: right;
     background: #F8F9FA;
