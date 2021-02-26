@@ -11,7 +11,7 @@ class Events(models.Model):
     name = models.CharField(max_length=254)
     datetime = models.DateTimeField()
     description = models.TextField()
-    image = models.ImageField(blank=True, upload_to='uploads/')
+    image = models.URLField(blank=True)
     offsite_url = models.URLField(blank=True)
     member_only = models.BooleanField()
     signed_up_users = models.ManyToManyField(

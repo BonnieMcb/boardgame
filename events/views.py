@@ -11,6 +11,16 @@ def events(request):
 
     events = Events.objects.all().order_by('datetime')
 
+    # split events, using Mon Year as key
+    all_events = dict()
+    for event in events:
+        k = event.datetime.strftime("%B %Y")
+        if k not in all_events:
+            all_events[k] = []
+
+        event.friendly_date = event.datetime.strftime("%a %d %b @ %H:%I")
+        all_events[k].append(event)
+
     user = request.user
     user_profile = None
     try:
@@ -24,8 +34,8 @@ def events(request):
             event.is_user_signed = user_profile in event.sign_list
 
     context = {
-        'events': events,
-        'user': user
+        'user': user,
+        'event_list': all_events
     }
     return render(request, 'events/events.html', context)
 

@@ -47,6 +47,15 @@ input[type=number] {
     cursor: pointer;
 }
 
+.event-image {
+    background-position: center;
+    background-size: cover;
+}
+
+.bg-semitransparent {
+    background: rgba(0, 0, 0, 0.5);
+}
+
 /* Toasts */
 .message-container {
     position: fixed;

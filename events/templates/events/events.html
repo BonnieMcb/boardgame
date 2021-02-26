@@ -29,48 +29,56 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-12">
-            {% for event in events %}
-            <div class="card {% if event.member_only %} bg-warning {% else %} bg-light {% endif %} mb-3">
-                <div>
-                    <h3 class="text-center logo-font mt-2">{{ event.name }}</h3>
+            {% for event_month, events in event_list.items %}
+            <div class="row mb-3">
+                <div class="col text-{% cycle 'left' 'right' %}">
+                    <h3 class="logo-font text-dark font-weight-bold">{{ event_month }}</h3>
                 </div>
-                <hr class="w50" >
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <p>{{ event.description }}</p>
-                        </div>
-                        <div class="col-sm-4">
-                            <p>{{ event.datetime }}</p>
-                            <p>This event is open to: 
-                                {% if event.member_only %}
-                                <strong>members only</strong>
-                                {% else %}
-                                <strong>everyone</strong>
-                                {% endif %}
-                            </p>
+            </div>
+            <div class="row mb-5">
+                {% for event in events %}
+                <div class="card {% if event.member_only %} bg-warning {% else %} bg-light {% endif %} mb-3 w-100">
+                    <div class="card-header p-0 m-0 border-0 event-image" style="background-image: url({{ event.image }})">
+                        <h4 class="text-center logo-font text-light bg-semitransparent p-3 m-0">{{ event.name }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <p>{{ event.description }}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p>{{ event.friendly_date }}</p>
+                                <p>This event is open to: 
+                                    {% if event.member_only %}
+                                    <strong>members only</strong>
+                                    {% else %}
+                                    <strong>everyone</strong>
+                                    {% endif %}
+                                </p>
+                            </div>
                         </div>
                     </div>
+                    <div class="card-footer">
+                        {% if event.is_user_signed %}
+                        <form class="form" action="{% url 'unsign' event.id %}" method="POST">
+                            {% csrf_token %}
+                            <div class="justify-content-center">
+                                <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                <input type="submit" class="m-2 btn btn-danger float-right" value="Unsign">
+                            </div>
+                        </form>
+                        {% else %}
+                        <form class="form" action="{% url 'sign' event.id %}" method="POST">
+                            {% csrf_token %}
+                            <div class="justify-content-center">
+                                <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                <input type="submit" class="m-2 btn btn-primary float-right" value="Sign Up">
+                            </div>
+                        </form>
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="card-footer">
-                    {% if event.is_user_signed %}
-                    <form class="form" action="{% url 'unsign' event.id %}" method="POST">
-                        {% csrf_token %}
-                        <div class="justify-content-center">
-                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                            <input type="submit" class="m-2 btn btn-danger float-right" value="Unsign">
-                        </div>
-                    </form>
-                    {% else %}
-                    <form class="form" action="{% url 'sign' event.id %}" method="POST">
-                        {% csrf_token %}
-                        <div class="justify-content-center">
-                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                            <input type="submit" class="m-2 btn btn-primary float-right" value="Sign Up">
-                        </div>
-                    </form>
-                    {% endif %}
-                </div>
+                {% endfor %}
             </div>
             {% endfor %}
         </div>
