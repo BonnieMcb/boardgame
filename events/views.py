@@ -3,6 +3,7 @@ from django.contrib import messages
 
 from .models import Events
 from profiles.models import UserProfile
+from membership.contexts import is_membership_valid
 
 
 def events(request):
@@ -30,13 +31,21 @@ def sign(request, event_id):
     try:
         event = Events.objects.get(id=event_id)
 
+        # to stop AnonymousUser signing for events
         user_profile = None
         try:
             user_profile = UserProfile.objects.get(id=request.user.id)
         except UserProfile.DoesNotExist:
             messages.error(request, "Please create an account in order to sign up for events!")
 
-        if user_profile:
+        # to ensure members-only events require membership
+        can_sign = True
+        if event.member_only:
+            can_sign = is_membership_valid(request)
+            if not can_sign:
+                messages.error(request, "Event is only for members. Become a member to attend!")
+
+        if user_profile and can_sign:
             event.signed_up_users.add(user_profile)
             messages.success(request, 'Signed up for event. Check your emails for further details')
 

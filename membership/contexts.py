@@ -1,4 +1,5 @@
 from .models import Membership
+from datetime import datetime
 
 
 def get_membership(request):
@@ -10,3 +11,11 @@ def get_membership(request):
 
     return membership
 
+
+def is_membership_valid(request):
+    membership = get_membership(request)
+    if not membership:
+        return False
+
+    current_date = datetime.now().date()
+    return current_date < membership.expiry
