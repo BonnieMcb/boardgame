@@ -60,8 +60,7 @@ def adjust_bag(request, item_id):
     quantity = int(request.POST.get('quantity'))
     bag = request.session.get('bag', {})
 
-    item_id_int = int(item_id)
-    if item_id_int >= MEMBERSHIP_ID_MIN:
+    if is_membership(item_id):
         handle_membership(request, bag)
     else:
         if quantity > 0:
