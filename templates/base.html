@@ -50,7 +50,12 @@
     {% if messages %}
        <div class="message-container">
             {% for message in messages %}
-                {% include 'includes/toasts/toast_success.html' %}
+                <!-- Message level is static, see https://docs.djangoproject.com/en/3.1/ref/contrib/messages/#creating-custom-message-levels -->
+                {% if message.level == 25 %}
+                    {% include 'includes/toasts/toast_success.html' %}
+                {% elif message.level == 40 %}
+                    {% include 'includes/toasts/toast_error.html' %}
+                {% endif %}
             {% endfor %}
        </div>
     {% endif %}
@@ -70,7 +75,9 @@
 
     {% block postloadjs %}
     <script type="text/javascript">
-        $('.toast').toast('show');
+        let toastObj = $('.toast');
+        toastObj.toast({ 'delay': 3000 })
+        toastObj.toast('show');
     </script>
     {% endblock %}
 
