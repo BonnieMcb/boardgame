@@ -8,7 +8,7 @@
 {% block page_header %}
 <div class="container header-container mt-5">
     <div class="row">
-        <div class="col text-center mb-4 text-light">
+        <div class="col text-center mb-4 text-dark">
             <h2 class="logo-font">my profile</h2>
             <hr class="w-50">
         </div>
@@ -23,7 +23,7 @@
     <!-- membership details -->
     <div class="row d-flex justify-content-center mb-5">
         <div class="col col-lg-6">
-            <div class="row text-light">
+            <div class="row text-dark">
                 <div class="col text-center">
                     {% if membership %} <!-- This text is shown if user is a member -->
                         <p>Hi, {{ user }}!</p>
@@ -53,12 +53,12 @@
     <div class="row d-flex justify-content-center">
         <div class="col col-lg-6">
             <div class="row">
-                <div class="col text-center mb-4 text-light">
+                <div class="col text-center mb-4 text-dark">
                     <h3 class="logo-font">address details</h3>
                     <hr class="w-50">
                 </div>
             </div>
-            <div class="row text-light justify-content-center mb-5">
+            <div class="row text-dark justify-content-center mb-5">
                 <form method="POST" action="{% url 'update_address' %}" class="w-75">
                     {% csrf_token %}
                     {% include 'profiles/includes/address_form.html' %}
@@ -73,12 +73,12 @@
     <div class="row d-flex justify-content-center mb-5">
         <div class="col col-lg-6">
             <div class="row">
-                <div class="col text-center mb-4 text-light">
+                <div class="col text-center mb-4 text-dark">
                     <h3 class="logo-font">order history</h3>
                     <hr class="w-50">
                 </div>
             </div>
-            <div class="row text-light justify-content-center">
+            <div class="row text-dark justify-content-center">
                 {% if orders %}
                     <div class="row w-75">
                         <div class="col font-weight-bold text-left">Order Date</div>
@@ -99,12 +99,12 @@
     <div class="row d-flex justify-content-center">
         <div class="col col-lg-6">
             <div class="row">
-                <div class="col text-center mb-4 text-light">
+                <div class="col text-center mb-4 text-dark">
                     <h3 class="logo-font">event signups</h3>
                     <hr class="w-50">
                 </div>
             </div>
-            <div class="row text-light justify-content-center">
+            <div class="row text-dark justify-content-center">
                 {% if events %}
                     <div class="row w-75">
                         <div class="col font-weight-bold text-left">Event Name</div>
@@ -131,7 +131,7 @@
                     <hr class="w-50">
                 </div>
             </div>
-            <div class="row text-light justify-content-center mb-5">
+            <div class="row text-dark justify-content-center mb-5">
                 <a href="{% url 'staff' %}" class="btn btn-danger">Manage Site</a>
             </div>
         </div>
@@ -143,13 +143,13 @@
         <div class="col col-lg-6">
             <div class="row">
                 <div class="col text-center">
-                    <div class="text-light mb-3">
+                    <div class="text-dark mb-3">
                         Already have an account?
                     </div>
                     <a href="{% url 'account_login' %}" class="btn btn-primary">Login</a>
                 </div>
                 <div class="col text-center">
-                    <div class="text-light mb-3">
+                    <div class="text-dark mb-3">
                         Need to sign up?
                     </div>
                     <a href="{% url 'account_signup' %}" class="btn btn-primary">Register</a>

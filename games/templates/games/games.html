@@ -33,13 +33,13 @@
                 <div class="row mb-3">
                     <div class="col-lg-2 col-4 mb-3 mb-lg-0 d-flex justify-content-center">
                         <div class="dropdown d-flex align-items-center">
-                            <button class="btn btn-sm btn-light dropdown-toggle" type="button" id="category-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn btn-sm btn-dark dropdown-toggle" type="button" id="category-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Category
                             </button>
                             <div class="dropdown-menu dropdown-fixed-h" aria-labelledby="category-dropdown">
                                 {% for category in categories %}
                                     {% if current_filter_cat and current_filter_cat == category.friendly_name %}
-                                    <a href="?category={{ category.name }}" class="dropdown-item selected bg-primary text-light">{{ category.friendly_name}}</a>
+                                    <a href="?category={{ category.name }}" class="dropdown-item selected bg-primary text-dark">{{ category.friendly_name}}</a>
                                     {% else %}
                                     <a href="?category={{ category.name }}" class="dropdown-item">{{ category.friendly_name}}</a>
                                     {% endif %}
@@ -49,13 +49,13 @@
                     </div>
                     <div class="col-lg-2 col-4 mb-3 mb-lg-0 d-flex justify-content-center">
                         <div class="dropdown d-flex align-items-center">
-                            <button class="btn btn-sm btn-light dropdown-toggle" type="button" id="mechanic-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn btn-sm btn-dark dropdown-toggle" type="button" id="mechanic-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Mechanic
                             </button>
                             <div class="dropdown-menu dropdown-fixed-h" aria-labelledby="mechanic-dropdown">
                                 {% for mechanic in mechanics %}
                                     {% if current_filter_mech and current_filter_mech == mechanic.friendly_name %}
-                                    <a href="?mechanic={{ mechanic.name }}" class="dropdown-item selected bg-primary text-light">{{ mechanic.friendly_name}}</a>
+                                    <a href="?mechanic={{ mechanic.name }}" class="dropdown-item selected bg-primary text-dark">{{ mechanic.friendly_name}}</a>
                                     {% else %}
                                     <a href="?mechanic={{ mechanic.name }}" class="dropdown-item">{{ mechanic.friendly_name}}</a>
                                     {% endif %}
@@ -65,7 +65,7 @@
                     </div>
                     <div class="col-lg-2 col-4 mb-3 mb-lg-0 d-flex justify-content-center">
                         <div class="dropdown d-flex align-items-center">
-                            <button class="btn btn-sm btn-light dropdown-toggle" type="button" id="sort-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn btn-sm btn-dark dropdown-toggle" type="button" id="sort-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Sort By
                             </button>
                             <div class="dropdown-menu" aria-labelledby="sort-dropdown">
@@ -121,9 +121,9 @@
                                 <p class="text-truncate game-title">{{ product.names }}</p>
                             </a>
                             {% if product.discounted_price %}
-                            <p class="lead mb-1 text-right text-light font-weight-bold">€{{ product.discounted_price }}<span class="ml-2 text-muted font-weight-normal"><del>€{{ product.price }}</del></span></p>
+                            <p class="lead mb-1 text-right text-dark font-weight-bold">€{{ product.discounted_price }}<span class="ml-2 text-muted font-weight-normal"><del>€{{ product.price }}</del></span></p>
                             {% else %}
-                            <p class="lead mb-1 text-right text-light font-weight-bold">€{{ product.price }}</p>
+                            <p class="lead mb-1 text-right text-dark font-weight-bold">€{{ product.price }}</p>
                             {% endif %}
                             <form class="form float-right" action="{% url 'add_to_bag' product.id %}" method="POST">
                                 {% csrf_token %}
