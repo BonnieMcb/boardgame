@@ -53,7 +53,7 @@ class Product(models.Model):
     num_votes = models.IntegerField(null=True, blank=True)
     owned = models.IntegerField(null=True, blank=True)
     designer = models.CharField(max_length=254, blank=True, default=None)
-    weight = models.DecimalField(
+    complexity = models.DecimalField(
         max_digits=4, decimal_places=2, null=True)
 
     # to make items invisible in the shop page

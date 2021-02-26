@@ -11,7 +11,7 @@ class ProductForm(forms.ModelForm):
                   'min_time', 'max_time', 'age', 'price',
                   'image_url', 'rank', 'bgg_url', 'game_id',
                   'year', 'avg_rating', 'geek_rating',
-                  'num_votes', 'owned', 'designer', 'weight',
+                  'num_votes', 'owned', 'designer', 'complexity',
                   'is_visible', 'is_membership')
 
     def __init__(self, *args, **kwargs):
