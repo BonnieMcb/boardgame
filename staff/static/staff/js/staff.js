@@ -1,5 +1,3 @@
-console.log("SOMETHING")
-
 $(document).ready(function() {
 
     let all = $('.delete-check');
@@ -43,6 +41,15 @@ $(document).ready(function() {
         $('#delete-text').html(delText)
 
         $('.modal').modal();
+    });
+
+    // toggle all checkboxes for easy bulk deletion
+    $('#check-all').on('click', function() {
+
+        let checked = $(this).is(':checked');
+        all.attr('checked', checked);
+
+        all.change();
     });
 
     $('input[name=datetime]').flatpickr({

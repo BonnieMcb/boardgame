@@ -28,3 +28,7 @@ form input[type=text], form input[type=number], form input[type=url], form selec
     background: #F8F9FA;
     border: 1px solid #343a40;
 }
+
+.btn:disabled {
+    opacity: 0.25;
+}

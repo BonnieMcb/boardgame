@@ -33,13 +33,45 @@
     </div>
     <div class="row d-flex justify-content-center">
         <div class="col col-lg-8">
-            <div class="row mb-3">
+            <div class="row mb-5">
+                <div class="col-6">
+                    <form method="GET" action="{% url 'event_list' %}">
+                        <div class="input-group w-100 border border-dark">
+                            <input class="form-control rounded-0 bg-light" type="text" name="q" placeholder="Search" value="{{ get_params.search }}">
+                            <div class="input-group-append">
+                                <button class="form-control btn btn-primary rounded-0" type="submit">
+                                    <span class="icon">
+                                        <i class="fas fa-search"></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-3 d-flex justify-content-end">
+                    <div class="dropdown d-flex align-items-center">
+                        <button class="btn btn-sm btn-dark dropdown-toggle" type="button" id="count-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Items Per Page
+                        </button>
+                        <div class="dropdown-menu dropdown-fixed-h" aria-labelledby="count-dropdown">
+                            <a href="?{{ get_params.no_count }}count=25" class="dropdown-item">25</a>
+                            <a href="?{{ get_params.no_count }}count=50" class="dropdown-item">50</a>
+                            <a href="?{{ get_params.no_count }}count=100" class="dropdown-item">100</a>
+                        </div>
+                    </div>
+                </div>
                 <div class="col d-flex justify-content-end ">
                     <button id="delete-btn" class="btn btn-danger" disabled>Delete Selected</button>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
+                <div class="row py-1 d-flex align-items-center bg-warning text-dark m-0">
+                    <label class="col bg-transparent mb-0" for="check-all">
+                        <input type="checkbox" value="" id="check-all">
+                        <span class="col game-name pl-1 font-weight-bold">Toggle All</span>
+                    </label>
+                </div>
                 {% for event in page_obj %}
                 <div class="row py-1 d-flex align-items-center bg-light text-dark m-0">
                     <label class="col-1 bg-transparent mb-0" for="check-{{ event.id }}">

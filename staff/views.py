@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 
-from .contexts import shop_list, is_staff, event_list
+from .contexts import shop_list, is_staff, event_list, handle_url_params
 from games.models import Product
 from events.models import Events
 from .forms import ProductForm, EventForm
@@ -28,8 +28,11 @@ def add_product(request):
 
 def product_list(request):
 
+    url_params = handle_url_params(request)
+
     context = {
-        'page_obj': shop_list(request)
+        'page_obj': shop_list(request),
+        'get_params': url_params
     }
 
     return render(request, 'staff/product_list.html', context)
@@ -113,10 +116,12 @@ def add_event(request):
 
 def events_list(request):
 
-    context = {
-        'page_obj': event_list(request)
-    }
+    url_params = handle_url_params(request)
 
+    context = {
+        'page_obj': event_list(request),
+        'get_params': url_params
+    }
     return render(request, 'staff/event_list.html', context)
 
 
