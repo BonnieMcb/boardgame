@@ -1,53 +1,28 @@
 body {
-    margin: 0;
     padding: 0;
 }
 
-.full-width-height {
-    height: 70vh;
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-}
-
-.overlay{
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    background-color: rgba(0,0,0,0.45);
-    color: #f8f9fa;
-}
-
-.section-content {
-    width: 70%;
-    position: relative;
-    top: 10vh;
-    left:5vh;
-}
-
-.backgrounds {
-    position: relative; 
-    background-repeat: no-repeat;
+section {
     background-size: cover;
 }
+
+section .row {
+    height: 40vh;
+}
+
 #top {
-    background-image: url(/media/centralperk.jpg);
+    background-image: url(/media/centralperk.png)
 }
 
 #bottom {
     background-image: url(/media/4colour_game.jpg);
 }
 
-#left { 
-    background-image: url(/media/events-image.jpg);
+.carousel-item {
+    height: 25vh;
 }
 
-#right {
-    background-image: url(/media/membership-image.jpg);
-}
-
-h2.title {
-    text-align: center;
+.carousel-inner img {
+    height: 25vh;
+    object-fit: contain;
 }

@@ -3,61 +3,62 @@
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/carousel.css' %}">
 {% endblock %}
 
-{% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
-        </div>
-    </div>
+{% block extra_js %}
+    <script src="{% static 'home/js/carousel.js' %}"></script>
 {% endblock %}
 
 {% block content %}
 
-    <section id="top" class="full-width-height backgrounds">
-        <div class="overlay">
-            <div class="section-content">
-                <h2 class="title mr-4">café</h2>
-                <p>Come and visit our café, where you can borrow boardgames from our extensive collection. If it's on our shop page, it's in our collection!</p>
-                <p>How it works:</p>
-                <ul>
-                    <li>You pay a cover fee to rent a table.</li>
-                    <li>The charge is £4.50 for 2 hours.</li>
-                    <li>Play as many games as you like.</li>
-                    <li>Order drinks and snacks from our table service, so you don't need to waste valuable playing time queing for your drinks.</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <div class="row full-width-height">
-        <div id="left" class="col-md-6 backgrounds">
-            <div class="overlay">
-                <div class="section-content">
-                    <h2 class="title">events</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis recusandae iste porro enim maiores repellendus sint, odio magnam alias exercitationem veniam, quas, suscipit ducimus dolor accusamus eaque commodi aperiam. Similique.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div id="right" class=" col-md-6 backgrounds">
-            <div class="overlay">
-                <div class="section-content">
-                    <h2 class="title">membership</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis recusandae iste porro enim maiores repellendus sint, odio magnam alias exercitationem veniam, quas, suscipit ducimus dolor accusamus eaque commodi aperiam. Similique.</p>
-                </div>
+<section id="top" class="bg-light">
+    <div class="container">
+        <div class="row d-flex align-items-end justify-content-end">
+            <div class="col-12 col-md-6 bg-warning text-dark py-2">
+                <h2 class="font-weight-bold logo-font">The Hexagon</h2>
+                <p class="mb-0">Board game café in sunny Falmouth</p>
             </div>
         </div>
     </div>
-
-    <section id="bottom" class="full-width-height backgrounds">
-        <div class="overlay">
-            <div class="section-content">
-                <h2 class="title">shop</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis recusandae iste porro enim maiores repellendus sint, odio magnam alias exercitationem veniam, quas, suscipit ducimus dolor accusamus eaque commodi aperiam. Similique.</p>
+</section>
+<section class="bg-light">
+    <div class="container">
+        <div class="row d-flex align-items-end justify-content-start">
+            <div class="col-12">
+                <!-- Carousel from: https://azmind.com/bootstrap-carousel-multiple-items/ -->
+                {% include 'home/includes/event_carousel.html' with items=random_events %}
+            </div>
+            <div class="col-12 col-md-6 bg-warning text-dark py-2">
+                <h2 class="font-weight-bold logo-font">Events</h2>
+                <p class="mb-0"><a href="{% url 'events' %}">Upcoming events</a> @ The Hexagon</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+<section id="bottom" class="bg-light">
+    <div class="container">
+        <div class="row d-flex align-items-end justify-content-end">
+            <div class="col-12 col-md-6 bg-warning text-dark py-2">
+                <h2 class="font-weight-bold logo-font">join us</h2>
+                <p class="mb-0"><a href="{% url 'membership' %}">Become a member</a> for exclusive deals</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="bg-light">
+    <div class="container">
+        <div class="row d-flex align-items-end justify-content-start">
+            <div class="col-12">
+                <!-- Carousel from: https://azmind.com/bootstrap-carousel-multiple-items/ -->
+                {% include 'home/includes/game_carousel.html' with items=random_games %}
+            </div>
+            <div class="col-12 col-md-6 bg-warning text-dark py-2">
+                <h2 class="font-weight-bold logo-font">Shop</h2>
+                <p class="mb-0"><a href="{% url 'games' %}">Browse</a> our enormous catalogue</p>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}
