@@ -25,4 +25,6 @@ form {
 input[type=text], input[type=number], input[type=url], select {
     width: 90%;
     text-align: right;
+    background: #F8F9FA;
+    border: 1px solid #343a40;
 }
