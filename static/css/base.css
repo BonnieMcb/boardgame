@@ -11,6 +11,13 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+.navbar .hexagon {
+    background-image: url(/media/hexagon.png);
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+}
+
 #main-nav {
     padding: 0;
 }
