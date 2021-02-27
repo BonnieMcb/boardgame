@@ -96,16 +96,29 @@ def map_field_to_indices(file_json, field_name):
 # map to django-compliant structure
 django_struct = []
 
+MAX_GAMES = 1000
+game_count = 0
+
 for game_obj in file_json:
+
+    # only process the first 1000 games
+    if game_count >= MAX_GAMES:
+        break
 
     single_game = {}
     single_game["pk"] = game_obj["rank"]
 
     single_game["model"] = "games.product"
 
+    # rename weight to complexity
+    game_obj["complexity"] = game_obj["weight"]
+    del game_obj["weight"]
+
     single_game["fields"] = game_obj
 
     django_struct.append(single_game)
+
+    game_count = game_count + 1
 
 
 # map mechanics, and write mechanics file
