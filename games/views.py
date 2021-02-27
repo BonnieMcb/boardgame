@@ -155,8 +155,8 @@ def all_games(request):
         product.mechanics = product.mechanic_id.all()
 
     # To create the sidebar links
-    mechanics = Mechanic.objects.all()
-    categories = Category.objects.all()
+    mechanics = Mechanic.objects.all().order_by('name')
+    categories = Category.objects.all().order_by('name')
 
     # handle URL parameters
     get_params = handle_url_parameters(request)
