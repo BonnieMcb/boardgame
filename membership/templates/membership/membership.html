@@ -61,13 +61,13 @@
                 </div>
                 <div class="card-footer">
                     {% if not user.is_anonymous %}
-                    <form class="form" action="{% url 'add_to_bag' 5000 %}" method="POST">
+                    <form class="form" action="{% url 'add_to_bag' 1000 %}" method="POST">
                         {% csrf_token %}
                         <div class="form-row mb-3 justify-content-center">
                             <select name="membership_id">
-                                <option selected value="5000">1 Month (€10)</option>
-                                <option value="5001">6 Months (€50)</option>
-                                <option value="5002">12 Months (€100)</option>
+                                <option selected value="1000">1 Month (€10)</option>
+                                <option value="1001">6 Months (€50)</option>
+                                <option value="1002">12 Months (€100)</option>
                             </select>
                         </div>
                         <div class="form-row justify-content-center">
@@ -98,13 +98,13 @@
                 </div>
                 <div class="card-footer">
                     {% if not user.is_anonymous %}
-                    <form class="form" action="{% url 'add_to_bag' 5000 %}" method="POST">
+                    <form class="form" action="{% url 'add_to_bag' 1000 %}" method="POST">
                         {% csrf_token %}
                         <div class="form-row mb-3 justify-content-center">
                             <select name="membership_id">
-                                <option selected value="5003">1 Month (€15)</option>
-                                <option value="5004">6 Months (€80)</option>
-                                <option value="5005">12 Months (€150)</option>
+                                <option selected value="1003">1 Month (€15)</option>
+                                <option value="1004">6 Months (€80)</option>
+                                <option value="1005">12 Months (€150)</option>
                             </select>
                         </div>
                         <div class="form-row justify-content-center">

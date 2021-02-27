@@ -132,7 +132,7 @@ def checkout(request):
 
 def try_apply_purchased_membership(request, bag):
 
-    MEMBERSHIP_MIN_ID = 5000
+    MEMBERSHIP_MIN_ID = 1000
 
     # check if there was a membership in the bag
     for item_id in list(bag.keys()):
@@ -143,19 +143,19 @@ def try_apply_purchased_membership(request, bag):
             is_premium = False
 
             # TODO: this code is purposefully simple to avoid adding a whole new payment concept
-            if item_id_int == 5000:
+            if item_id_int == 1000:
                 len = 1
-            elif item_id_int == 5001:
+            elif item_id_int == 1001:
                 len = 6
-            elif item_id_int == 5002:
+            elif item_id_int == 1002:
                 len = 12
-            elif item_id_int == 5003:
+            elif item_id_int == 1003:
                 len = 1
                 is_premium = True
-            elif item_id_int == 5004:
+            elif item_id_int == 1004:
                 len = 6
                 is_premium = True
-            elif item_id_int == 5005:
+            elif item_id_int == 1005:
                 len = 12
                 is_premium = True
 
