@@ -177,6 +177,7 @@ def all_games(request):
 
     context = {
         'page_obj': page_obj,
+        'navbar': 'shop',
         'mechanics': mechanics,
         'categories': categories,
         'search_term': query,
@@ -210,6 +211,7 @@ def game_detail(request, game_id):
 
     context = {
        'product': game,
+       'navbar': 'shop',
        'mechanics': mechanics,
        'categories': categories,
     }

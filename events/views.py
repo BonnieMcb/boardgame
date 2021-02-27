@@ -35,6 +35,7 @@ def events(request):
 
     context = {
         'user': user,
+        'navbar': 'events',
         'event_list': all_events
     }
     return render(request, 'events/events.html', context)

@@ -7,13 +7,14 @@
         <div class="col-lg-9 collapse navbar-collapse d-lg-flex justify-content-center" id="navbarSupportedContent">
             <div class="col-lg-8">
                 <ul class="navbar-nav d-flex justify-content-center">
-                    <li class="nav-item mx-lg-4 mx-0 font-weight-bold">
+                    <!-- With help from: https://stackoverflow.com/a/25044880 -->
+                    <li class="nav-item mx-lg-4 mx-0 font-weight-bold {% if navbar == 'shop' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'games' %}">shop</a>
                     </li>
-                    <li class="nav-item mx-lg-4 mx-0 font-weight-bold">
+                    <li class="nav-item mx-lg-4 mx-0 font-weight-bold {% if navbar == 'membership' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'membership' %}">membership</a>
                     </li>
-                    <li class="nav-item mx-lg-4 mx-0 font-weight-bold">
+                    <li class="nav-item mx-lg-4 mx-0 font-weight-bold {% if navbar == 'events' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'events' %}">events</a>
                     </li>
                 </ul>

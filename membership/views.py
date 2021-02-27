@@ -12,6 +12,7 @@ def membership(request):
 
     context = {
         'user': request.user,
+        'navbar': 'membership',
         'membership': membership
     }
 
