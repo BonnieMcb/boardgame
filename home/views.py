@@ -27,7 +27,12 @@ def index(request):
     EVENT_COUNT = 10
     events = []
     for i in range(EVENT_COUNT):
-        events.append(get_random(Events))
+        rand_ev = get_random(Events)
+        desc = rand_ev.description
+        # taken from: https://stackoverflow.com/a/2873416
+        rand_ev.short_desc = desc[:100] + (desc[100:] and '...')
+
+        events.append(rand_ev)
 
     context = {
         'random_games': games,

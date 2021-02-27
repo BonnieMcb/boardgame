@@ -4,8 +4,13 @@
             {% for item in items %}
             <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 {% if forloop.first %} active {% endif %}">
                 <div class="card bg-primary text-light">
-                    <div class="card-header">{{ item.name }}</div>
-                    <div class="card-header="><a class="text-decoration-none text-light p-3" href="{% url 'events' %}"> More info</a> </div>
+                    <div class="card-header logo-font font-weight-bold">{{ item.name }}</div>
+                    <div class="card-body">
+                        <div class="row px-2 h-25 text-dark">{{ item.short_desc }}</div>
+                        <div class="row px-2 h-25 text-center">
+                            <a class="text-decoration-none text-light w-100 mt-2" href="{% url 'events' %}">More info</a>
+                        </div>
+                    </div>
                     <div class="card-footer">{{ item.datetime }}</div>
                 </div>
             </div>
