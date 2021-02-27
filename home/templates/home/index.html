@@ -32,11 +32,11 @@
         <div class="row d-flex align-items-end justify-content-start">
             <div class="col-12">
                 <!-- Carousel from: https://azmind.com/bootstrap-carousel-multiple-items/ -->
-                {% include 'home/includes/event_carousel.html' with items=random_events %}
+                {% include 'home/includes/game_carousel.html' with items=random_games %}
             </div>
             <div class="col-12 col-md-6 bg-warning text-dark py-2">
-                <h2 class="font-weight-bold logo-font">Events</h2>
-                <p class="mb-0"><a href="{% url 'events' %}">Upcoming events</a> @ The Hexagon</p>
+                <h2 class="font-weight-bold logo-font">Shop</h2>
+                <p class="mb-0"><a href="{% url 'games' %}">Browse</a> our enormous catalogue</p>
             </div>
         </div>
     </div>
@@ -56,11 +56,11 @@
         <div class="row d-flex align-items-end justify-content-start">
             <div class="col-12">
                 <!-- Carousel from: https://azmind.com/bootstrap-carousel-multiple-items/ -->
-                {% include 'home/includes/game_carousel.html' with items=random_games %}
+                {% include 'home/includes/event_carousel.html' with items=random_events %}
             </div>
             <div class="col-12 col-md-6 bg-warning text-dark py-2">
-                <h2 class="font-weight-bold logo-font">Shop</h2>
-                <p class="mb-0"><a href="{% url 'games' %}">Browse</a> our enormous catalogue</p>
+                <h2 class="font-weight-bold logo-font">Events</h2>
+                <p class="mb-0"><a href="{% url 'events' %}">Upcoming events</a> @ The Hexagon</p>
             </div>
         </div>
     </div>
