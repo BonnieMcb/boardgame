@@ -95,8 +95,6 @@
                     <p>Member-only Events</p>
                     <hr>
                     <p>Exclusive Offers</p>
-                    <hr>
-                    <p>First priority on Bookings</p>
                 </div>
                 <div class="card-footer">
                     {% if not user.is_anonymous %}
@@ -106,13 +104,13 @@
                             <select name="membership_id">
                                 <option selected value="5003">1 Month (€15)</option>
                                 <option value="5004">6 Months (€80)</option>
-                                <option value="5005">12 Months (€160)</option>
+                                <option value="5005">12 Months (€150)</option>
                             </select>
                         </div>
                         <div class="form-row justify-content-center">
                             <input type="hidden" name="redirect_url" value="{{ request.path }}">
                             <input type="hidden" name="quantity" value="1">
-                            <input type="submit" class="btn btn-primary float-right" value="Upgrade">
+                            <input type="submit" class="btn btn-primary float-right" value="Buy Now">
                         </div>
                     </form>
                     {% else %}
