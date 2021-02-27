@@ -52,9 +52,46 @@ $(document).ready(function() {
         all.change();
     });
 
+    // datepicker for event editing
     $('input[name=datetime]').flatpickr({
         enableTime: true,
         dateFormat: "Y-m-d H:i",
         minDate: 'today'
+    });
+
+    // category/mechanic editing
+    $('.single-item').on('input', function() {
+        
+        // find the target buttons
+        let cancelBtn = $(this).parent().parent().siblings().children('.btn-cancel');
+        let confirmBtn = $(this).parent().parent().siblings().children('.btn-confirm');
+
+        let defaultVal = $(this).attr('default');
+        let currentVal = $(this).val();
+
+        if (defaultVal == currentVal) {
+            cancelBtn.attr('disabled', true);
+            confirmBtn.attr('disabled', true);
+            return;
+        }
+
+        cancelBtn.attr('disabled', false);
+        confirmBtn.attr('disabled', false);
+    })
+
+    $('.btn-cancel').on('click', function() {
+
+        // find the input
+        let input = $(this).parent().siblings().find('.single-item');
+        input.val(input.attr('default'));
+
+        input.trigger('input');
+    });
+
+    $('.btn-confirm').on('click', function() {
+
+        // find the right form to submit
+        let form = $(this).parent().siblings().find('form');
+        form.submit();
     });
 });

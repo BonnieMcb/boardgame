@@ -32,3 +32,9 @@ form input[type=text], form input[type=number], form input[type=url], form selec
 .btn:disabled {
     opacity: 0.25;
 }
+
+/* category/mechanic editing */
+
+textarea {
+    height: 60vh;
+}

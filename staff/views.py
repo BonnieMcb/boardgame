@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 
+import string
 from .contexts import shop_list, is_staff, event_list, handle_url_params
-from games.models import Product
+from games.models import Product, Category, Mechanic
 from events.models import Events
 from .forms import ProductForm, EventForm
 
@@ -13,7 +14,7 @@ def staff(request):
         return redirect('/')
 
     return render(request, 'staff/staff.html')
-
+    
 
 def add_product(request):
 
@@ -182,8 +183,145 @@ def remove_event(request):
                 event = Events.objects.get(id=event_id)
                 # remove the event
                 event.delete()
+                messages.success(request, 'Event deleted')
             except (Events.DoesNotExist, TypeError) as e:
                 print("Can't find event: ", e)
 
-    messages.success(request, 'Event deleted')
     return redirect(reverse('event_list'))
+
+
+def category_list(request):
+
+    all_cats = Category.objects.all()
+
+    context = {
+        'categories': all_cats
+    }
+
+    return render(request, 'staff/category_list.html', context)
+
+
+# code from data_convert.py
+def get_safe_name(friendly_name):
+    # transform contents into db-friendly name
+    # code modified from medium.com @ shorturl.at/eCQ02
+    text_string = friendly_name.translate(str.maketrans(
+        '', '', string.punctuation))
+    safename = text_string.translate(str.maketrans(
+        '', '', string.whitespace)).lower()
+    return safename
+
+
+def category_edit(request):
+
+    redirect_url = request.POST.get('redirect_url')
+
+    if 'name' in request.POST and 'id' in request.POST:
+        try:
+            cat = Category.objects.get(id=request.POST.get('id'))
+            friendly_name = request.POST.get('name')
+            name = get_safe_name(friendly_name)
+            # set new values and save
+            cat.friendly_name = friendly_name
+            cat.name = name
+            cat.save()
+            messages.success(request, 'Categories edited')
+        except (Category.DoesNotExist, ValueError) as e:
+            print("Cannot find category", e)
+
+    return redirect(redirect_url)
+
+
+def category_add(request):
+
+    redirect_url = request.POST.get('redirect_url')
+
+    if 'name' in request.POST:
+        friendly_name = request.POST.get('name')
+        name = get_safe_name(friendly_name)
+        cat = Category(name=name, friendly_name=friendly_name)
+        cat.save()
+        messages.success(request, 'Category added')
+
+    return redirect(redirect_url)
+
+
+def category_remove(request):
+
+    post_data = request.POST.get('cat_ids')
+    if post_data:
+        cat_ids = post_data.split(',')
+        for cat_id in cat_ids:
+            # get the event
+            try:
+                category = Category.objects.get(id=cat_id)
+                # remove the category
+                category.delete()
+                messages.success(request, 'Category deleted')
+            except (Category.DoesNotExist, TypeError) as e:
+                print("Can't find category: ", e)
+
+    return redirect(reverse('categories'))
+
+
+def mechanic_list(request):
+
+    all_mechs = Mechanic.objects.all()
+
+    context = {
+        'mechanics': all_mechs
+    }
+
+    return render(request, 'staff/mechanic_list.html', context)
+
+
+def mechanic_edit(request):
+
+    redirect_url = request.POST.get('redirect_url')
+
+    if 'name' in request.POST and 'id' in request.POST:
+        try:
+            mech = Mechanic.objects.get(id=request.POST.get('id'))
+            friendly_name = request.POST.get('name')
+            name = get_safe_name(friendly_name)
+            # set new values and save
+            mech.friendly_name = friendly_name
+            mech.name = name
+            mech.save()
+            messages.success(request, 'Mechanics edited')
+        except (Mechanic.DoesNotExist, ValueError) as e:
+            print("Cannot find mechanic", e)
+
+    return redirect(redirect_url)
+
+
+def mechanic_add(request):
+
+    redirect_url = request.POST.get('redirect_url')
+
+    if 'name' in request.POST:
+        friendly_name = request.POST.get('name')
+        name = get_safe_name(friendly_name)
+        mech = Mechanic(name=name, friendly_name=friendly_name)
+        mech.save()
+        messages.success(request, 'Mechanic added')
+
+    return redirect(redirect_url)
+
+
+def mechanic_remove(request):
+
+    post_data = request.POST.get('mech_ids')
+    if post_data:
+        mech_ids = post_data.split(',')
+        for mech_id in mech_ids:
+            # get the event
+            try:
+                mech = Mechanic.objects.get(id=mech_id)
+                # remove the mechanic
+                mech.delete()
+                messages.success(request, 'Mechanic deleted')
+            except (Mechanic.DoesNotExist, TypeError) as e:
+                print("Can't find mechanic: ", e)
+
+    return redirect(reverse('mechanics'))

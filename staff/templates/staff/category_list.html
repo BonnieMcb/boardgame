@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<!-- jQuery Modal -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<link rel="stylesheet" href="{% static 'staff/css/staff.css' %}" />
+{% endblock %}
+
+{% block extra_js %}
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+{% endblock %}
+
+{% block page_header %}
+<div class="container header-container mt-5">
+    <div class="row">
+        <div class="col text-center mb-4 text-dark">
+            <h2 class="logo-font text-danger">staff only</h2>
+            <hr class="w-50">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col col-lg-6">
+            <div class="row mb-5">
+                <div class="col d-flex justify-content-end">
+                    <button id="delete-btn" class="btn btn-danger" disabled>Delete Selected</button>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col">
+                    <div class="row py-1 d-flex align-items-center bg-warning text-dark m-0">
+                        <label class="col bg-transparent mb-0" for="check-all">
+                            <input type="checkbox" value="" id="check-all">
+                            <span class="col game-name pl-1 font-weight-bold">Toggle All</span>
+                        </label>
+                    </div>
+                    {% for category in categories %}
+                    <div class="row py-1 d-flex align-items-center bg-light text-dark m-0">
+                        <label class="col-1 bg-transparent mb-0" for="check-{{ category.id }}">
+                            <input type="checkbox" value="" id="check-{{ category.id }}" class="delete-check">
+                        </label>
+                        <div class="col-1 game-id">{{ category.id }}</div>
+                        <div class="col game-name">
+                            <form method="POST" action="{% url 'categories_edit' %}">
+                                {% csrf_token %}
+                                <input type="text" name="name" value="{{ category.friendly_name }}" default="{{ category.friendly_name }}" class="single-item w-100 text-left">
+                                <input type="hidden" name="id" value="{{ category.id }}">
+                                <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                            </form>
+                        </div>
+                        <div class="col-2 d-flex justify-content-end">
+                            <button class="btn btn-confirm" disabled>
+                                <i class="fas fa-check text-primary"></i>
+                            </button>
+                            <button class="btn btn-cancel" disabled>
+                                <i class="fas fa-times text-danger"></i>
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="row py-1 d-flex align-items-center bg-light text-dark m-0">
+                        <label class="col-1 bg-transparent mb-0" for="check-new">
+                            <input type="checkbox" value="" id="check-new" class="delete-check">
+                        </label>
+                        <div class="col-1 game-id">-</div>
+                        <div class="col game-name">
+                            <form method="POST" action="{% url 'categories_add' %}">
+                                {% csrf_token %}
+                                <input type="text" name="name" value="" placeholder="Add New..." class="single-item w-100 text-left">
+                                <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                            </form>
+                        </div>
+                        <div class="col-2 d-flex justify-content-end">
+                            <button class="btn btn-confirm" disabled>
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal">
+    <div class="container">
+        <div class="row">
+            <h4 class="col logo-font text-dark mt-2">Delete</h4>
+        </div>
+        <hr class="my-2">
+        <div class="row">
+            <div class="col text-danger"><span id="delete-text"></span></div>
+        </div>
+        <div class="row">
+            <div id="delete-contents" class="col text-right"></div>
+        </div>
+        <hr>
+        <div class="row float-right">
+            <form action="{% url 'categories_remove' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" class="remove_ids" name="cat_ids">
+                <button type="submit" class="btn btn-primary mr-3">OK</button>
+            </form>
+            <a href="#" rel="modal:close" class="btn btn-primary">Cancel</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <script src="{% static 'staff/js/staff.js' %}"></script>
+{% endblock %}
