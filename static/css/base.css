@@ -47,6 +47,7 @@ input[type=number] {
     bottom: 25px;
     right: 25px;
     display: none;
+    z-index: 1;
 }
 
 .btt-link,
