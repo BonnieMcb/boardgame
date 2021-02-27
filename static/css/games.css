@@ -42,11 +42,3 @@
     max-height: 300px;
     object-fit: contain;;
 }
-
-/* Back to top button (referenced in Readme.md) */
-.back-to-top {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    display: none;
-}

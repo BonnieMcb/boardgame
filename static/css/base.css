@@ -41,6 +41,14 @@ input[type=number] {
     line-height: 60px; /* Vertically center the text there */
 }
 
+/* Back to top button (referenced in Readme.md) */
+.back-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: none;
+}
+
 .btt-link,
 .update-link,
 .remove-item {

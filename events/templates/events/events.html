@@ -5,6 +5,10 @@
     <link rel="stylesheet" href="{% static 'events/css/events.css' %}">
 {% endblock %}
 
+{% block extra_js %}
+    <script src="{% static 'js/back-to-top.js' %}"></script>
+{% endblock %}
+
 {% block page_header %}
 <div class="container header-container mt-5">
     <div class="row">
@@ -85,5 +89,9 @@
     </div>
 </div>
 
+<!-- Back to top button (referenced in Readme.md)-->
+<a id="back-to-top" href="#" class="btn btn-warning btn-lg back-to-top" role="button">
+    <i class="fas fa-arrow-up"></i>
+</a>
 
 {% endblock %}
