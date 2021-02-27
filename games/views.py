@@ -175,6 +175,8 @@ def all_games(request):
     if sort:
         current_sorting = f'{sort} / {direction}'
 
+    full_path = request.get_full_path()
+
     context = {
         'page_obj': page_obj,
         'navbar': 'shop',
@@ -185,7 +187,8 @@ def all_games(request):
         'current_sorting': current_sorting,
         'current_filter_cat': current_filter_cat,
         'current_filter_mech': current_filter_mech,
-        'current_query': query
+        'current_query': query,
+        'full_path': full_path
     }
 
     return render(request, 'games/games.html', context)
