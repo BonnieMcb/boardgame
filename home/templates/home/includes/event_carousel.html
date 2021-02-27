@@ -5,7 +5,7 @@
             <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 {% if forloop.first %} active {% endif %}">
                 <div class="card bg-primary text-light">
                     <div class="card-header">{{ item.name }}</div>
-                    <div class="card-body">{{ item.description }}</div>
+                    <div class="card-header="><a class="text-decoration-none text-light p-3" href="{% url 'events' %}"> More info</a> </div>
                     <div class="card-footer">{{ item.datetime }}</div>
                 </div>
             </div>
