@@ -102,6 +102,7 @@ game_count = 0
 for game_obj in file_json:
 
     # only process the first 1000 games
+    game_count = game_count + 1
     if game_count >= MAX_GAMES:
         break
 
@@ -117,8 +118,6 @@ for game_obj in file_json:
     single_game["fields"] = game_obj
 
     django_struct.append(single_game)
-
-    game_count = game_count + 1
 
 
 # map mechanics, and write mechanics file
