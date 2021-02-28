@@ -12,8 +12,6 @@ The W3C Markup Validator and W3C CSS Validator Services were used to validate ev
 
 - [W3C Markup Validator](https://validator.w3.org/) No errors or warnings
 - [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) No errors.
-- [JsHint](https://jshint.com/) (0 warnings)
-- [PEP-8 checker](http://pep8online.com/) (All right)
 
 
 ### Testing User Stories
