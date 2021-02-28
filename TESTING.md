@@ -30,7 +30,7 @@ I want to be able to:
     * Back to top buttons are provided on the pages where there are long lists: shop and events.
     * After paying for an order, the user is shown the checkout success page, which includes  
     
-![linkout](/documents/screenshots/UX/2-link-out.PNG)
+![linkout](/documents/screenshots/UX/2-link-out.png)
 
 3. Be reminded that I'm logged in, and be able to easily log out.
     * When logged in, the username is shown in the navbar. Dark text on the yellow background is highly visible. 
