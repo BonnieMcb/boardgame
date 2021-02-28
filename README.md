@@ -363,7 +363,7 @@ I made sure to wrap all necessary database queries in ```try``` except blocks in
 
 ## Testing
 
-See separate [Testing](https://github.com/BonnieMcb/boardgame/blob/master/testing.md) file
+See separate [TESTING](https://github.com/BonnieMcb/boardgame/blob/master/TESTING.md) file
 
 
 ## Deployment and Cloning Repo
