@@ -108,11 +108,11 @@ In the shop section, there are a lot of games, so the priority was to make all t
 Throughout the course I have used Figma and Balsamiq, but my personal preference, when working 100% solo, is pen and paper, and that is what I used this time for the designs of the website pages. 
 I played around with Figma when trying to use the 4-colour scheme as described above in the Colour Pallete section in the navbar. However, I did not use these designs and therefore have not included them here.
 
-* [Home](/documents/wireframes/home.jpg) 
-* [shop](/documents/wireframes/shop.jpg) 
-* [product-detail](/documents/wireframes/product-detail.jpg) 
-* [membership](/documents/wireframes/membership.jpg) 
-* [static](/documents/wireframes/static-pages.jpg) 
+* [Home](/documents/wireframes/home.jpg?raw=true) 
+* [shop](/documents/wireframes/shop.jpg?raw=true) 
+* [product-detail](/documents/wireframes/product-detail.jpg?raw=true) 
+* [membership](/documents/wireframes/membership.jpg?raw=true) 
+* [static](/documents/wireframes/static-pages.jpg?raw=true) 
 
 
 #### Colour Palette
