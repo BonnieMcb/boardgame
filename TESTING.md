@@ -46,12 +46,12 @@ I want to be able to:
 5. View further details of products I'm interested in
     * The game details page lists information for 8 different attributes of the game, in addition to the categories and mechanics. For an even more detailed description, users can follow the link to an offsite description.
     
-![product_detail](/documents/screenshots/UX/5-prod-det.PNG)
+![product_detail](/documents/screenshots/UX/5-prod-det.png)
 
 6. See suggested games
     * On the home page, after the café section, there is a shop section.  This section displays a card carousel of randomly selected games and their names. Clicking these links the game detail page.
     
-![suggested](/documents/screenshots/UX/6-suggested.PNG)
+![suggested](/documents/screenshots/UX/6-suggested.png)
 
 **Sorting and Searching**
 
@@ -70,7 +70,7 @@ I want to be able to:
 11. Quickly view my results
     * Pagination is implemented, and the user is able to select items per page via the dropdown box at the top of the shop page.
     
-![membershop](/documents/screenshots/UX/4-7-8-9-10-11-22-member-shop.PNG)
+![membershop](/documents/screenshots/UX/4-7-8-9-10-11-22-member-shop.png)
 
 **Registration and User Accounts**
 
@@ -82,12 +82,12 @@ I want to be able to:
 16.-21 View my user profile
     * Clicking on the User icon or the username in the navbar directs to the My Profile page. This is where users can view information related to their profile, and save their address. This covers **user stories 16 - 21**, as evidenced by the below screenshot.
 
-![profile](/documents/screenshots/UX/16-21-profile.PNG)
+![profile](/documents/screenshots/UX/16-21-profile.png)
 
 22. See in the nav bar that my purchase has been added to bag
     * When there are no items in the bag, only the bag icon is displayed in navbar. Upon adding items, the number of items is shown next to bag icon. The user receieved further feedback after adding an item via a success toast.
     
-![feedback](/documents/screenshots/UX/22-bag-feedback.PNG)
+![feedback](/documents/screenshots/UX/22-bag-feedback.png)
 
 23. Click on my bag to see what's been added
     * The shopping bag page shows a table that displays the product image, name, price, discount if applicable, quantity, and subtotal per item.
@@ -95,7 +95,7 @@ I want to be able to:
     * Pagination is implemented, and the user is able to select items per page via the dropdown box at the top of the shop page.
 26. A member can again see their discount automatically applied with the Total, Discount and Grand Total fields.
 
-![bag](/documents/screenshots/UX/23-24-26-bag.PNG)
+![bag](/documents/screenshots/UX/23-24-26-bag.png)
 
 25. Have my address pre-populated
     * If the user has registered an address in the my profile page, the address form will be pre-populated.
@@ -125,9 +125,9 @@ I want to be able to:
     * CRUD available for games, categories, mechanics, and events.
     * Not available for membership, but editing this would be a business decision rather than a day-to-day task, so I am happy not to have this option available to staff members. 
     
-![staffarea](/documents/screenshots/UX/staffarea.PNG)
-![staffedit](/documents/screenshots/UX/staffedit.PNG)
-![gameedit](/documents/screenshots/UX/gameedit.PNG)
+![staffarea](/documents/screenshots/UX/staffarea.png)
+![staffedit](/documents/screenshots/UX/staffedit.png)
+![gameedit](/documents/screenshots/UX/gameedit.png)
 
 
 #### Site owner goals:
