@@ -229,7 +229,7 @@ The User model used is the standard one provided by `django.contrib.auth.models`
 
 A simplified diagram of the schema is visible below. 
 
-![Simplified data schema](/documents/HexagonSchema.pdf)
+[Simplified data schema](/documents/HexagonSchema.pdf)
 
 ## Features
 
